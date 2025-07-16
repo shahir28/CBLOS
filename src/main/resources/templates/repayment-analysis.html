@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repayment Analysis for Loan <span th:text="${loan.applicationId}"></span> 📊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/base-corporate.css}" />
+    <link rel="stylesheet" th:href="@{/css/app-corporate.css}" />
+    <style>
+        /* Specific styles for Repayment Analysis Page */
+        .repayment-container {
+            max-width: 1000px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        .repayment-container h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .repayment-container .loan-details-summary {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+            box-shadow: inset 0 1px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px 30px;
+        }
+
+        .repayment-container .loan-details-summary div {
+            padding: 5px 0;
+            color: #333;
+        }
+
+        .repayment-container .loan-details-summary strong {
+            color: #2c3e50;
+            min-width: 150px;
+            display: inline-block;
+        }
+
+        .repayment-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .summary-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .summary-card .value {
+            font-size: 2em;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+
+        .summary-card .label {
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .repayment-table-container {
+            overflow-x: auto;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .repayment-table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .repayment-table-container th, .repayment-table-container td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+        }
+
+        .repayment-table-container th {
+            background-color: #f0f2f5;
+            color: #2c3e50;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .repayment-table-container tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .repayment-table-container tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .payment-status-pending { color: #ffc107; font-weight: bold; } /* Yellow */
+        .payment-status-paid { color: #28a745; font-weight: bold; } /* Green */
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .repayment-container {
+                padding: 25px 15px;
+                margin: 15px auto;
+            }
+            h1 { font-size: 2em; }
+            .repayment-container .loan-details-summary {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .repayment-summary-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .repayment-table-container th, .repayment-table-container td {
+                padding: 10px;
+                font-size: 0.85em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8em; }
+            .repayment-container .loan-details-summary strong {
+                min-width: unset;
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="repayment-container">
+        <h1><i class="fas fa-chart-pie"></i> Loan Repayment Analysis for Loan <span th:text="${loan.applicationId}"></span></h1>
+        <p th:if="${repaymentSchedule == null || repaymentSchedule.isEmpty()}" class="message-box info">
+            No repayment schedule found for this loan. This might be a new loan or not yet approved/disbursed, or the schedule has not been generated.
+        </p>
+
+        <div th:if="${repaymentSchedule != null && !repaymentSchedule.isEmpty()}">
+            <div class="loan-details-summary">
+                <div><strong>Company:</strong> <span th:text="${loan.companyName}"></span></div>
+                <div><strong>Loan Type:</strong> <span th:text="${loan.loanType}"></span></div>
+                <div><strong>Loan Amount:</strong> <span th:text="${#numbers.formatCurrency(loan.loanAmount)}"></span></div>
+                <div><strong>Interest Rate:</strong> <span th:text="${#numbers.formatDecimal(loan.interestRate * 100, 0, 2) + '%'}"></span></div>
+                <div><strong>Loan Term:</strong> <span th:text="${loan.loanTermMonths + ' months'}"></span></div>
+                <div><strong>Approval Date:</strong> <span th:text="${#temporals.format(loan.approvalRejectionDate, 'dd-MMM-yyyy')}"></span></div>
+            </div>
+
+            <div class="repayment-summary-grid">
+                <div class="summary-card">
+                    <div class="value" id="totalPrincipal"></div>
+                    <div class="label">Total Principal</div>
+                </div>
+                <div class="summary-card">
+                    <div class="value" id="totalInterest"></div>
+                    <div class="label">Total Interest Paid</div>
+                </div>
+                <div class="summary-card">
+                    <div class="value" id="totalPayments"></div>
+                    <div class="label">Total Payments</div>
+                </div>
+                <div class="summary-card">
+                    <div class="value" id="remainingBalance"></div>
+                    <div class="label">Current Remaining Balance</div>
+                </div>
+            </div>
+
+            <div class="repayment-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Due Date</th>
+                            <th>Principal</th>
+                            <th>Interest</th>
+                            <th>Total Payment</th>
+                            <th>Remaining Balance</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="installment : ${repaymentSchedule}">
+                            <td th:text="${installment.installmentNumber}">1</td>
+                            <td th:text="${#temporals.format(installment.dueDate, 'dd-MMM-yyyy')}"></td>
+                            <td th:text="${#numbers.formatCurrency(installment.principalAmount)}"></td>
+                            <td th:text="${#numbers.formatCurrency(installment.interestAmount)}"></td>
+                            <td th:text="${#numbers.formatCurrency(installment.totalPayment)}"></td>
+                            <td th:text="${#numbers.formatCurrency(installment.remainingBalance)}"></td>
+                            <td>
+                                <span th:classappend="${installment.paymentStatus == 'PENDING' ? 'payment-status-pending' : 'payment-status-paid'}"
+                                      th:text="${installment.paymentStatus}"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a th:href="@{/user/dashboard}" class="button-link btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <script th:inline="javascript">
+       
+        const repaymentScheduleData = [];
+        const loanAmount =  0; // Use loanAmount from model
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (repaymentScheduleData && repaymentScheduleData.length > 0) {
+                // Calculate Summary Metrics
+                let totalPrincipalPaid = 0;
+                let totalInterestPaid = 0;
+                let totalPaymentsMade = 0;
+                let currentRemainingBalance = 0; // Will be the last installment's remaining balance
+
+                repaymentScheduleData.forEach(installment => {
+                    totalPrincipalPaid += installment.principalAmount;
+                    totalInterestPaid += installment.interestAmount;
+                    totalPaymentsMade += installment.totalPayment;
+                    currentRemainingBalance = installment.remainingBalance; // Last installment's remaining balance
+                });
+
+                // Format and display summary metrics
+                document.getElementById('totalPrincipal').textContent = formatCurrency(totalPrincipalPaid);
+                document.getElementById('totalInterest').textContent = formatCurrency(totalInterestPaid);
+                document.getElementById('totalPayments').textContent = formatCurrency(totalPaymentsMade);
+                document.getElementById('remainingBalance').textContent = formatCurrency(currentRemainingBalance);
+
+            }
+        });
+
+        // Helper function to format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount);
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Your Loan Documents! 🚀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/base-corporate.css}" />
+    <link rel="stylesheet" th:href="@{/css/app-corporate.css}" />
+    <style>
+        /* Basic styling for the form to make it presentable */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Light background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .instructions-text {
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        input[type="text"],
+        input[type="number"],
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding in width */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        input[type="file"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+        .text-muted {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 5px;
+            display: block;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none; /* For button-link style */
+            gap: 8px;
+            margin-top: 20px;
+            width: 100%; /* Make button full width */
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #6c757d;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none; /* For button-link style */
+            margin-top: 15px;
+            gap: 8px;
+            width: 100%; /* Make button full width */
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+        .dummy-values {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .dummy-values strong {
+            color: #2c3e50;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+        }
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .close-button:hover {
+            color: #666;
+        }
+        .icon-success {
+            font-size: 4em;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        .modal-content h3 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .modal-content p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .app-id-display {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #007bff;
+            margin-top: 20px;
+        }
+        .track-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 25px;
+            padding: 12px 25px;
+            font-size: 1.1em;
+        }
+        .track-button i {
+            margin-right: 8px;
+        }
+        .message-box {
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .message-box.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message-box.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+
+        @media (max-width: 600px) {
+            .app-container {
+                margin: 15px;
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                margin: 10px 0;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .icon-success {
+                font-size: 3em;
+            }
+            .modal-content h3 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container document-upload-container">
+        <h2><i class="fas fa-cloud-upload-alt"></i> Your Document Upload Portal!</h2>
+        <p class="instructions-text">
+            Almost there! Please upload the necessary documents to complete your loan application.
+            Make sure your Application ID is correct and select the right document type.
+        </p>
+
+        <div th:if="${successMessage}" class="message-box success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="message-box error" th:text="${errorMessage}"></div>
+
+        <form th:action="@{/document/submit}" th:object="${document}" method="post" enctype="multipart/form-data">
+            <label for="applicationId">Application ID:
+                <input type="number" id="applicationId" th:field="*{loanApplication.applicationId}" placeholder="e.g., 101, 102, 103" required/>
+            </label>
+            <p class="dummy-values">
+                <i class="fas fa-info-circle"></i> Use dummy IDs like <strong>101, 102, 103</strong> for testing!
+                (Copy from your Loan Application Success page!)
+            </p>
+
+            <label for="documentType">Document Type:
+                <select id="documentType" th:field="*{documentType}" required>
+                    <option value="">-- Select a Document Type --</option>
+                    <option value="Proof of Identity">Proof of Identity (e.g., Passport, Driver's License)</option>
+                    <option value="Proof of Address">Proof of Address (e.g., Utility Bill, Bank Statement)</option>
+                    <option value="Bank Statements">Bank Statements (Last 6 months)</option>
+                    <option value="Business Registration">Business Registration Certificate</option>
+                    <option value="Financial Statements">Company Financial Statements</option>
+                    <option value="Project Proposal">Project Proposal (for project loans)</option>
+                </select>
+            </label>
+            <label for="file">Select Your File:
+                <input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.jpg,.png" required/>
+            </label>
+            <p class="dummy-values">
+                <i class="fas fa-exclamation-triangle"></i> Note: File upload is simulated. Just pick any file!
+            </p>
+
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-upload"></i> Blast Off Your Documents!
+            </button>
+        </form>
+        <a href="/user/dashboard" class="button-link btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <div id="uploadSuccessModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">&times;</button>
+            <i class="fas fa-check-circle icon-success"></i>
+            <h3>Documents Uploaded Successfully! 🎉</h3>
+            <p>Your documents are now safely with us. You can track your loan's progress!</p>
+            <p class="app-id-display">Application ID: <span id="modalAppId"></span></p>
+            <a id="trackLoanButton" href="#" class="track-button btn-primary">
+                <i class="fas fa-tasks"></i> Track Your Loan Journey!
+            </a>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        // Get the success flag and application ID from the Spring model
+        const uploadSuccess = /*[[${uploadSuccess}]]*/ false;
+        const uploadedApplicationId = /*[[${uploadedApplicationId}]]*/ null;
+        const uploadedDocumentType = /*[[${uploadedDocumentType}]]*/ '';
+        const uploadedFileName = /*[[${uploadedFileName}]]*/ '';
+
+        const modal = document.getElementById('uploadSuccessModal');
+        const modalAppId = document.getElementById('modalAppId');
+        const trackLoanButton = document.getElementById('trackLoanButton');
+
+        // Function to show the modal
+        function showModal() {
+            modal.classList.add('show');
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modal.classList.remove('show');
+            // Optionally clear form or redirect after closing
+        }
+
+        // Check if upload was successful on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (uploadSuccess) {
+                modalAppId.textContent = uploadedApplicationId;
+                trackLoanButton.href = '/loan/status?applicationId=' + uploadedApplicationId; // Corrected path
+                showModal();
+                // Optionally clear the form after successful upload
+                // document.querySelector('form').reset(); // Don't reset entire form to keep ID
+                document.getElementById('file').value = ''; // Clear file input only
+            }
+        });
+        
+    </script>
+</body>
+</html>

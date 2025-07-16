@@ -1,0 +1,126 @@
+/* Auth Corporate Theme: Specific styles for Login, Signup, Admin Login */
+
+/* Import base corporate styles */
+@import url('base-corporate.css');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f7fa 0%, #a7d9f7 100%); /* Soft blue gradient for auth */
+}
+
+.auth-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    animation: fadeInScale 0.8s ease-out;
+}
+
+.auth-container h2 {
+    color: #004085; /* Deep blue for auth headings */
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.auth-container .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.auth-container .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 1.05em;
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="password"],
+.auth-container input[type="email"] {
+    border-color: #b0c4de; /* Lighter blue-grey border */
+}
+
+.auth-container input[type="text"]:focus,
+.auth-container input[type="password"]:focus,
+.auth-container input[type="email"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.auth-container .message-box {
+    margin-bottom: 20px;
+}
+
+.auth-container .btn-auth-submit {
+    width: 100%;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 50px; /* Pill shape for auth buttons */
+    margin-top: 10px;
+    background: linear-gradient(45deg, #007bff, #0056b3); /* Primary blue gradient */
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.auth-container .btn-auth-submit:hover {
+    background: linear-gradient(45deg, #0056b3, #007bff);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
+}
+
+.auth-container .link-text {
+    margin-top: 25px;
+    font-size: 1.05em;
+    color: #666;
+}
+
+.auth-container .link-text a {
+    font-weight: 600;
+}
+
+/* Specific Admin Login Adjustments */
+body.admin-login-page {
+    background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%); /* Warm, admin-themed gradient */
+}
+.admin-login-page .auth-container h2 {
+    color: #d9534f; /* Admin red */
+}
+.admin-login-page .auth-container input {
+    border-color: #f0ad4e; /* Orange border for admin inputs */
+}
+.admin-login-page .auth-container input:focus {
+    border-color: #f0ad4e;
+    box-shadow: 0 0 0 0.2rem rgba(240, 173, 78, 0.25);
+}
+.admin-login-page .auth-container .btn-auth-submit {
+    background: linear-gradient(45deg, #d9534f, #c9302c); /* Admin red gradient */
+    box-shadow: 0 5px 15px rgba(217, 83, 79, 0.4);
+}
+.admin-login-page .auth-container .btn-auth-submit:hover {
+    background: linear-gradient(45deg, #c9302c, #d9534f);
+    box-shadow: 0 8px 20px rgba(217, 83, 79, 0.6);
+}
+
+/* Responsive adjustments for auth pages */
+@media (max-width: 600px) {
+    .auth-container {
+        padding: 25px;
+        margin: 15px;
+    }
+    .auth-container h2 {
+        font-size: 2em;
+    }
+    .auth-container .btn-auth-submit {
+        padding: 12px 20px;
+        font-size: 1.1em;
+    }
+}
+

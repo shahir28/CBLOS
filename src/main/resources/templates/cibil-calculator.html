@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Credit Superpower Calculator!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/base-corporate.css">
+    <link rel="stylesheet" href="/css/app-corporate.css">
+</head>
+<body>
+    <div class="app-container calculator-container">
+        <header class="calculator-header">
+            <h1>✨ Unleash Your Credit Superpower! ✨</h1>
+            <p>Enter a few details to get your *simulated* CIBIL score. It's all for fun!</p>
+        </header>
+
+        <main class="calculator-content">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="paymentHistory">On-time Payments (0-100%):</label>
+                    <input type="range" id="paymentHistory" min="0" max="100" value="75">
+                    <span id="paymentHistoryValue" class="range-value">75%</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="creditUtilization">Credit Utilization (0-100%):</label>
+                    <input type="range" id="creditUtilization" min="0" max="100" value="30">
+                    <span id="creditUtilizationValue" class="range-value">30%</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="creditHistoryLength">Years of Credit History (0-30 years):</label>
+                    <input type="range" id="creditHistoryLength" min="0" max="30" value="5">
+                    <span id="creditHistoryLengthValue" class="range-value">5 years</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="newCreditInquiries">New Credit Inquiries (0-10):</label>
+                    <input type="range" id="newCreditInquiries" min="0" max="10" value="1">
+                    <span id="newCreditInquiriesValue" class="range-value">1</span>
+                </div>
+
+                <button id="calculateCibil" class="calculate-button btn-success">
+                    <i class="fas fa-calculator"></i> Calculate My Score!
+                </button>
+            </div>
+
+            <div class="result-section">
+                <h2>Your Simulated CIBIL Score:</h2>
+                <div class="score-display">
+                    <span id="cibilScoreDisplay">---</span>
+                    <span id="scoreEmoji" class="emoji">🤔</span>
+                </div>
+                <p id="scoreMessage" class="message">Adjust the sliders and hit 'Calculate'!</p>
+            </div>
+        </main>
+
+        <footer class="calculator-footer">
+            <a href="/user/dashboard" class="button-link btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <p>Remember, this is a fun simulation, not a real credit report! 😉</p>
+        </footer>
+    </div>
+
+    <script src="/js/cibil-calculator.js"></script>
+</body>
+</html>

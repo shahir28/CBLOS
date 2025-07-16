@@ -1,0 +1,453 @@
+/* welcome.css - Background Animation Enhanced */
+ 
+/* Basic Reset & Font */
+
+/* FROM GITHUB CODEPEN AND DRIBBLESHOTS */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif; /* A highly professional and versatile font */
+    overflow: hidden; /* Prevent scrollbars during animation */
+    background-color: #f8f9fa; /* Very light, clean background */
+}
+ 
+/* Welcome Container - Full Screen with Elegant Gradient and Overlay */
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Deep, sophisticated blue gradient */
+    background: linear-gradient(145deg, #1a2a6c 0%, #29408b 50%, #1a2a6c 100%);
+    color: white; /* Text will be white on this deep background */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInContainer 1.8s ease-out forwards; /* Smoother, professional fade */
+    cursor: pointer;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.3); /* Subtle inner shadow for depth */
+    transition: background 1s ease-in-out; /* Smooth transition for background hover */
+}
+
+/* NEW: Hover effect for the entire container background */
+.welcome-container:hover {
+    background: linear-gradient(145deg, #29408b 0%, #1a2a6c 50%, #29408b 100%); /* Slightly shifted gradient */
+}
+ 
+/* Subtle background overlay for texture/pattern */
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Subtle grid pattern - less distracting than previous SVG, better for animation overlay */
+    background: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px; /* Adjust grid density */
+    opacity: 0.1; /* Very subtle */
+    z-index: 1;
+    animation: fadeInOverlay 2s ease-out forwards;
+}
+ 
+/* Dynamic Animated Background Shapes (Pseudo-elements and new divs) */
+.welcome-container::before,
+.welcome-container::after,
+.welcome-container .floating-shape-1,
+.welcome-container .floating-shape-2,
+.welcome-container .floating-shape-3,
+.welcome-container .floating-shape-4,
+.welcome-container .floating-shape-5 {
+    content: ''; /* Required for pseudo-elements, ignored for divs */
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1); /* Subtle white transparency */
+    filter: blur(120px); /* Increased blur for abstract, glowing effect */
+    z-index: 2; /* Between overlay and content */
+    animation: floatAndMorph 30s infinite ease-in-out alternate; /* Longer, more complex animation */
+    transition: transform 0.5s ease-out, filter 0.5s ease-out, background 0.5s ease-out; /* Smooth transition for hover */
+}
+
+/* NEW: Hover effect for individual floating shapes */
+.welcome-container:hover::before,
+.welcome-container:hover::after,
+.welcome-container:hover .floating-shape-1,
+.welcome-container:hover .floating-shape-2,
+.welcome-container:hover .floating-shape-3,
+.welcome-container:hover .floating-shape-4,
+.welcome-container:hover .floating-shape-5 {
+    transform: scale(1.1) rotate(5deg) !important; /* Slightly larger and rotated */
+    filter: blur(150px) brightness(1.2); /* Brighter and more blurred */
+    background: rgba(255, 255, 255, 0.2); /* More opaque */
+}
+ 
+.welcome-container::before {
+    width: 400px; /* Larger */
+    height: 400px; /* Larger */
+    top: 10%;
+    left: 15%;
+    animation-delay: 0s;
+    background: rgba(170, 210, 255, 0.18); /* Slightly different hue for variation */
+}
+ 
+.welcome-container::after {
+    width: 450px; /* Larger */
+    height: 450px; /* Larger */
+    bottom: 5%;
+    right: 10%;
+    animation-delay: 5s; /* Staggered start */
+    background: rgba(200, 230, 255, 0.18); /* Another hue */
+}
+ 
+/* Existing floating elements - increased size and varied initial positions */
+.welcome-container .floating-shape-1 {
+    width: 300px;
+    height: 300px;
+    top: 60%;
+    left: 5%;
+    animation-delay: 3s;
+    animation-duration: 27s; /* Vary duration */
+    background: rgba(150, 190, 240, 0.15);
+}
+ 
+.welcome-container .floating-shape-2 {
+    width: 380px;
+    height: 380px;
+    top: 20%;
+    right: 5%;
+    animation-delay: 8s;
+    animation-duration: 32s;
+    background: rgba(200, 220, 250, 0.15);
+}
+ 
+.welcome-container .floating-shape-3 {
+    width: 250px;
+    height: 250px;
+    bottom: 25%;
+    left: 25%;
+    animation-delay: 12s;
+    animation-duration: 29s;
+    background: rgba(180, 200, 230, 0.15);
+}
+
+/* Additional floating shapes - increased size and varied initial positions */
+.welcome-container .floating-shape-4 {
+    width: 320px;
+    height: 320px;
+    top: 40%;
+    left: 80%;
+    animation-delay: 18s;
+    animation-duration: 35s;
+    background: rgba(160, 200, 245, 0.16);
+}
+
+.welcome-container .floating-shape-5 {
+    width: 280px;
+    height: 280px;
+    bottom: 15%;
+    right: 40%;
+    animation-delay: 10s;
+    animation-duration: 26s;
+    background: rgba(190, 220, 255, 0.14);
+}
+ 
+/* Sparkle Container and Sparkle Elements */
+.sparkle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3; /* Above shapes, below content-wrapper */
+    pointer-events: none; /* Allows clicks to pass through to the container */
+}
+
+.sparkle {
+    position: absolute;
+    width: 8px; /* Larger sparkles */
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.9); /* Brighter white */
+    border-radius: 50%;
+    opacity: 0; /* Starts invisible */
+    animation: twinkle 2.5s infinite ease-in-out forwards; /* Twinkling animation */
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* More prominent glow */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition for hover */
+}
+
+/* NEW: Hover effect for sparkles */
+.welcome-container:hover .sparkle {
+    transform: scale(1.5); /* Make them pop slightly */
+    opacity: 1; /* Ensure they are fully visible */
+}
+
+/* Content Wrapper - Central Focus */
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    padding: 40px 60px; /* More generous padding */
+    background-color: rgba(255, 255, 255, 0.05); /* Very subtle translucent white for a "frosted glass" effect */
+    border-radius: 20px; /* Softer, more elegant curve */
+    /* Subtle, sophisticated shadow */
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1);
+    max-width: 950px;
+    width: 90%;
+    backdrop-filter: blur(8px); /* Frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    transform: translateY(0);
+    animation: slideInContent 1s ease-out 0.5s forwards;
+    opacity: 0;
+}
+ 
+/* Welcome Message Styling */
+.welcome-message {
+    font-size: 5.5em; /* Larger, more impactful heading */
+    font-weight: 800; /* Extra bold for strong presence */
+    margin-bottom: 25px;
+    color: #ffffff; /* Pure white on dark background */
+    text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4); /* Deeper, more refined shadow */
+    letter-spacing: 2px; /* Slightly wider spacing */
+    animation: slideInDownText 1s cubic-bezier(0.23, 1, 0.32, 1) 0.8s forwards; /* Smooth, bouncy animation curve */
+    opacity: 0;
+    transform: translateY(-50px);
+}
+ 
+.welcome-subtitle {
+    font-size: 2.2em; /* Prominent subtitle */
+    margin-bottom: 60px;
+    color: #e0e0e0; /* Off-white for contrast */
+    line-height: 1.4;
+    animation: fadeInText 1.5s ease-out 1.2s forwards;
+    opacity: 0;
+}
+ 
+/* Enter Button Styling */
+.enter-button {
+    /* Elegant, subtle blue to light blue gradient */
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    color: white;
+    padding: 22px 55px; /* More padding for a bolder button */
+    border: none;
+    border-radius: 50px; /* Classic pill shape */
+    font-size: 1.7em; /* Bolder text */
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    /* More pronounced, but still refined shadow */
+    box-shadow: 0 12px 30px rgba(0, 123, 255, 0.35);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 20px; /* More space between text and icon */
+    animation: popInButton 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.5s forwards; /* Springy pop-in */
+    opacity: 0;
+    transform: scale(0.7);
+    letter-spacing: 0.8px;
+    text-transform: uppercase; /* Professional touch */
+}
+ 
+.enter-button:hover {
+    transform: translateY(-10px) scale(1.08); /* Stronger lift on hover */
+    box-shadow: 0 18px 45px rgba(0, 123, 255, 0.5); /* More intense shadow on hover */
+    background: linear-gradient(45deg, #00c6ff, #007bff); /* Invert gradient */
+}
+ 
+.enter-button .fas {
+    font-size: 1.4em; /* Larger icon */
+    transition: transform 0.3s ease-in-out;
+}
+ 
+.enter-button:hover .fas {
+    transform: translateX(10px) rotate(8deg); /* Dynamic arrow movement */
+}
+ 
+ 
+/* Keyframe Animations */
+@keyframes fadeInContainer {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+ 
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 0.1; }
+}
+ 
+/* More complex background shape animation with varied shapes */
+@keyframes floatAndMorph {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        border-radius: 50%; /* Perfect circle */
+        opacity: 0.15;
+    }
+    15% {
+        transform: translate(100px, -60px) scale(1.1) rotate(20deg);
+        border-radius: 40% 60% 70% 30% / 30% 70% 30% 70%; /* Oval-like */
+        opacity: 0.2;
+    }
+    30% {
+        transform: translate(50px, 120px) scale(0.9) rotate(40deg);
+        border-radius: 60% 40% 40% 60% / 60% 60% 40% 40%; /* Blobby */
+        opacity: 0.18;
+    }
+    45% {
+        transform: translate(-80px, -40px) scale(1.2) rotate(-30deg);
+        border-radius: 70% 30% 70% 30% / 30% 70% 30% 70%; /* More stretched oval */
+        opacity: 0.22;
+    }
+    60% {
+        transform: translate(150px, -100px) scale(0.95) rotate(10deg);
+        border-radius: 50% 50% 30% 70% / 70% 30% 50% 50%; /* Tear drop */
+        opacity: 0.19;
+    }
+    75% {
+        transform: translate(-120px, 80px) scale(1.05) rotate(-50deg);
+        border-radius: 30% 70% 50% 50% / 50% 50% 70% 30%; /* Another blob */
+        opacity: 0.21;
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        border-radius: 50%;
+        opacity: 0.15;
+    }
+}
+ 
+/* Twinkling animation for sparkles */
+@keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+    25% { opacity: 0.8; transform: scale(1.2) rotate(45deg); }
+    50% { opacity: 0.2; transform: scale(0.7) rotate(90deg); }
+    75% { opacity: 0.9; transform: scale(1.1) rotate(135deg); }
+}
+
+@keyframes slideInContent {
+    from { opacity: 0; transform: translateY(80px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+ 
+@keyframes fadeInText {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+ 
+@keyframes slideInDownText {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+ 
+@keyframes popInButton {
+    from { opacity: 0; transform: scale(0.7); }
+    80% { opacity: 1; transform: scale(1.1); } /* Overshoot for springy effect */
+    to { opacity: 1; transform: scale(1); }
+}
+ 
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .welcome-container::before,
+    .welcome-container::after,
+    .welcome-container .floating-shape-1,
+    .welcome-container .floating-shape-2,
+    .welcome-container .floating-shape-3,
+    .welcome-container .floating-shape-4,
+    .welcome-container .floating-shape-5 {
+        filter: blur(100px); /* Slightly less blur on medium screens */
+    }
+}
+
+@media (max-width: 992px) {
+    .welcome-message {
+        font-size: 4.5em;
+        margin-bottom: 20px;
+    }
+    .welcome-subtitle {
+        font-size: 1.8em;
+        margin-bottom: 50px;
+    }
+    .enter-button {
+        padding: 20px 45px;
+        font-size: 1.5em;
+    }
+    .content-wrapper {
+        padding: 30px 40px;
+    }
+    /* Reduce size of some shapes for better performance/layout on tablets */
+    .welcome-container::before { width: 350px; height: 350px; }
+    .welcome-container::after { width: 400px; height: 400px; }
+    .welcome-container .floating-shape-1 { width: 250px; height: 250px; }
+    .welcome-container .floating-shape-2 { width: 330px; height: 330px; }
+    .welcome-container .floating-shape-3 { width: 200px; height: 200px; }
+    .welcome-container .floating-shape-4 { width: 280px; height: 280px; }
+    .welcome-container .floating-shape-5 { width: 230px; height: 230px; }
+    .sparkle { width: 6px; height: 6px; box-shadow: 0 0 6px rgba(255, 255, 255, 0.7); }
+}
+ 
+@media (max-width: 768px) {
+    .welcome-message {
+        font-size: 3.5em;
+        letter-spacing: 1px;
+    }
+    .welcome-subtitle {
+        font-size: 1.5em;
+        margin-bottom: 40px;
+    }
+    .enter-button {
+        padding: 18px 40px;
+        font-size: 1.3em;
+        gap: 15px;
+    }
+    .content-wrapper {
+        padding: 25px 30px;
+        border-radius: 15px;
+    }
+    /* Hide some shapes for better performance on smaller screens */
+    .welcome-container .floating-shape-4,
+    .welcome-container .floating-shape-5 {
+        display: none;
+    }
+    .welcome-container::before { width: 300px; height: 300px; }
+    .welcome-container::after { width: 350px; height: 350px; }
+    .welcome-container .floating-shape-1 { width: 200px; height: 200px; }
+    .welcome-container .floating-shape-2 { width: 280px; height: 280px; }
+    .welcome-container .floating-shape-3 { width: 150px; height: 150px; }
+    .sparkle { width: 4px; height: 4px; box-shadow: 0 0 4px rgba(255, 255, 255, 0.6); }
+}
+ 
+@media (max-width: 576px) {
+    .welcome-message {
+        font-size: 2.8em;
+        line-height: 1.2;
+    }
+    .welcome-subtitle {
+        font-size: 1.2em;
+        padding: 0 10px;
+        margin-bottom: 30px;
+    }
+    .enter-button {
+        padding: 15px 30px;
+        font-size: 1.1em;
+        gap: 10px;
+    }
+    .enter-button .fas {
+        font-size: 1.1em;
+    }
+    .content-wrapper {
+        padding: 20px 25px;
+        border-radius: 10px;
+        max-width: 95%; /* Allow it to take more width on small screens */
+    }
+    /* Hide most background elements for better performance on very small screens */
+    .background-overlay,
+    .welcome-container::before,
+    .welcome-container::after,
+    .welcome-container .floating-shape-1,
+    .welcome-container .floating-shape-2,
+    .welcome-container .floating-shape-3,
+    .welcome-container .floating-shape-4,
+    .welcome-container .floating-shape-5,
+    .sparkle-container {
+        display: none;
+    }
+    /* Keep a simple background for mobile */
+    .welcome-container {
+        background: linear-gradient(145deg, #1a2a6c 0%, #29408b 100%);
+    }
+}

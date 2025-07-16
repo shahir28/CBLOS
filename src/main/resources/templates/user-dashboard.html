@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Awesome Loan Hub! 🏠</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/base-corporate.css">
+    <link rel="stylesheet" href="/css/app-corporate.css">
+    <style>
+        /* General Dashboard Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light grey background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: #ffffff; /* White background for the main container */
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .greeting {
+            font-size: 2.8em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .tagline {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 1fr; /* Default to single column */
+            gap: 30px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e0e0e0;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .feature-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .feature-card .icon {
+            font-size: 3.2em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .feature-card h3 {
+            font-size: 1.6em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 20px;
+            min-height: 45px; /* Ensure consistent card height */
+        }
+        .feature-card .call-to-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #007bff;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        .feature-card .call-to-action:hover {
+            color: #0056b3;
+        }
+        .feature-card .call-to-action i {
+            transition: transform 0.2s ease;
+        }
+        .feature-card .call-to-action:hover i {
+            transform: translateX(5px);
+        }
+
+        .info-section {
+            background-color: #e6f7ff; /* Light blue background */
+            border-left: 5px solid #007bff;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0, 123, 255, 0.1);
+        }
+        .info-section h2 {
+            color: #007bff;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .info-section li {
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+        }
+        .info-section li::before {
+            content: "\f00c"; /* FontAwesome check icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: #28a745;
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        .dashboard-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #888;
+            font-size: 0.9em;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .footer-links a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-links a:hover {
+            color: #0056b3;
+        }
+
+        .logout-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .logout-button {
+            background-color: #dc3545; /* Red for logout */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logout-button:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        /* New Sections Styling */
+        .section-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+        .section-card h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .section-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* My Documents Section */
+        .document-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .document-list li {
+            background-color: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95em;
+            color: #444;
+        }
+        .document-list li .doc-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .document-list li .doc-icon {
+            color: #007bff;
+            font-size: 1.2em;
+        }
+        .document-list li .doc-status {
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+        .doc-status.pending { background-color: #ffc10720; color: #ffc107; }
+        .doc-status.verified { background-color: #28a74520; color: #28a745; }
+
+        /* Loan Calculator Section */
+        .calculator-form .form-group {
+            margin-bottom: 15px;
+        }
+        .calculator-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        .calculator-form input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .calculator-form button {
+            background-color: #17a2b8; /* Cyan for calculator */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            margin-top: 15px;
+        }
+        .calculator-form button:hover {
+            background-color: #138496;
+        }
+        .calculator-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+        }
+        .calculator-result span {
+            color: #007bff;
+            font-size: 1.2em;
+        }
+
+        /* Recent Activity Section */
+        .activity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .activity-list li {
+            background-color: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95em;
+            color: #444;
+        }
+        .activity-list li .activity-icon {
+            color: #6f42c1; /* Purple for activity */
+            font-size: 1.2em;
+        }
+        .activity-list li .activity-time {
+            font-style: italic;
+            color: #888;
+            font-size: 0.85em;
+        }
+
+        /* Terms of Service & Contact Us Sections (at the very bottom) */
+        .collapsible-section-container {
+            max-width: 1200px;
+            margin: 30px auto; /* Same margin as app-container for alignment */
+            background-color: #f8f9fa; /* Lighter background for this section */
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            border: 1px solid #e9ecef;
+            text-align: center;
+        }
+        .collapsible-section-container h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .section-snippet {
+            font-size: 0.95em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .read-more-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease;
+        }
+        .read-more-button:hover {
+            background-color: #0056b3;
+        }
+        .full-content {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+            text-align: left;
+            border-top: 1px dashed #ccc;
+            padding-top: 20px;
+        }
+        .full-content h3 {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .full-content p, .full-content ul {
+            font-size: 0.9em;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .full-content ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+        .full-content li {
+            margin-bottom: 5px;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .dashboard-content {
+                grid-template-columns: 2fr 1fr; /* Two columns on larger screens */
+            }
+            .main-content-area {
+                grid-column: 1 / 2;
+            }
+            .sidebar-area {
+                grid-column: 2 / 3;
+            }
+        }
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 20px 15px;
+                margin: 15px auto;
+            }
+            .greeting {
+                font-size: 2.2em;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-card h2 {
+                font-size: 1.8em;
+            }
+            .collapsible-section-container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container dashboard-container">
+        <header class="dashboard-header">
+            <h1 class="greeting" id="dynamicGreeting"></h1>
+            <p class="tagline">Your journey to smart loans starts here.</p>
+        </header>
+
+        <main class="dashboard-content">
+            <div class="main-content-area">
+                <section class="feature-grid">
+                    <div class="feature-card apply-loan">
+                        <a th:href="@{/loan/submit}">
+                            <i class="fas fa-hand-holding-usd icon"></i>
+                            <h3>Apply for a Loan</h3>
+                            <p>Ready to fund your dreams? Get started with a new application!</p>
+                            <span class="call-to-action">Launch Application <i class="fas fa-rocket"></i></span>
+                        </a>
+                    </div>
+
+                    <div class="feature-card check-cibil">
+                        <a href="/cibil/calculator">
+                            <i class="fas fa-chart-line icon"></i>
+                            <h3>Check Your Credit Superpower!</h3>
+                            <p>Discover your financial health with our fun CIBIL score calculator.</p>
+                            <span class="call-to-action">Calculate Now <i class="fas fa-magic"></i></span>
+                        </a>
+                    </div>
+
+                    <div class="feature-card check-status">
+                        <a th:href="@{/loan/status}">
+                            <i class="fas fa-tasks icon"></i>
+                            <h3>Track Your Loan Journey</h3>
+                            <p>See where your loan application stands, step by exciting step.</p>
+                            <span class="call-to-action">Follow Progress <i class="fas fa-compass"></i></span>
+                        </a>
+                    </div>
+
+                    <div class="feature-card smart-tips">
+                        <a th:href="@{/user/financial-tips}">
+                            <i class="fas fa-lightbulb icon"></i>
+                            <h3>Smart Financial Tips</h3>
+                            <p>Unlock secrets to boost your financial well-being. Let's learn!</p>
+                            <span class="call-to-action">Explore Tips <i class="fas fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+
+                    <div class="feature-card my-documents">
+                        <a th:href="@{/user/documents/upload}">
+                            <i class="fas fa-file-upload icon"></i>
+                            <h3>My Documents</h3>
+                            <p>View and upload necessary documents for your loan applications.</p>
+                            <span class="call-to-action">Manage Documents <i class="fas fa-folder-open"></i></span>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="info-section">
+                    <h2>💡 Quick Tips for a Smooth Journey:</h2>
+                    <ul>
+                        <li>Always have your documents ready for a lightning-fast application!</li>
+                        <li>Keep an eye on your loan status – exciting updates might be waiting!</li>
+                        <li>Got questions? Our friendly support team is just a click away!</li>
+                    </ul>
+                </section>
+
+                <section class="section-card recent-activity-card">
+                    <h2><i class="fas fa-history"></i> Recent Account Activity</h2>
+                    <p style="text-align: center; color: #555;">A snapshot of your latest interactions (simulated data).</p>
+                    <ul class="activity-list">
+                        <li><i class="fas fa-file-invoice-dollar activity-icon"></i> Submitted New Loan Application #104 <span class="activity-time">(Just now)</span></li>
+                        <li><i class="fas fa-file-upload activity-icon"></i> Uploaded Proof of Address for Loan #101 <span class="activity-time">(1 hour ago)</span></li>
+                        <li><i class="fas fa-check-circle activity-icon"></i> Loan Application #102 Approved! <span class="activity-time">(Yesterday)</span></li>
+                        <li><i class="fas fa-chart-line activity-icon"></i> Viewed Repayment Schedule for Loan #102 <span class="activity-time">(2 days ago)</span></li>
+                        <li><i class="fas fa-lightbulb activity-icon"></i> Explored Financial Tips <span class="activity-time">(3 days ago)</span></li>
+                    </ul>
+                </section>
+
+            </div>
+
+            <div class="sidebar-area">
+                <section class="section-card loan-calculator-card">
+                    <h2><i class="fas fa-calculator"></i> Quick Loan Calculator</h2>
+                    <p style="font-size: 0.95em; color: #666; text-align: center; margin-bottom: 20px;">Estimate your monthly payments!</p>
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="calcLoanAmount">Loan Amount:</label>
+                            <input type="number" id="calcLoanAmount" value="100000" min="1000" />
+                        </div>
+                        <div class="form-group">
+                            <label for="calcInterestRate">Annual Interest Rate (%):</label>
+                            <input type="number" id="calcInterestRate" value="7.5" step="0.1" min="0.1" max="30" />
+                        </div>
+                        <div class="form-group">
+                            <label for="calcLoanTerm">Loan Term (Years):</label>
+                            <input type="number" id="calcLoanTerm" value="5" min="1" max="30" />
+                        </div>
+                        <button onclick="calculateEmi()">Calculate EMI</button>
+                        <div class="calculator-result" id="emiResult">
+                            Monthly EMI: <span>$0.00</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>&copy; 2025 The Coolest Corporate Bank Loan System Ever! ✨</p>
+            <div class="footer-links">
+                <h3><a th:href="@{/privacy}">Privacy Policy</a></h3>
+            </div>
+        </footer>
+
+        <section class="collapsible-section-container">
+            <h2><i class="fas fa-file-contract"></i> Terms of Service Summary</h2>
+            <div class="section-snippet" id="termsSnippet">
+                <p>Welcome to the Corporate Bank Loan System. By using our services, you agree to our comprehensive Terms of Service. This includes guidelines on user conduct, data usage, and responsibilities. For full details, please click "Read More".</p>
+                <button class="read-more-button" onclick="toggleSection('terms')">Read More</button>
+            </div>
+            <div class="full-content" id="fullTerms">
+                <h3>Full Terms of Service</h3>
+                <h4>1. Acceptance of Terms</h4>
+                <p>By accessing or using the Corporate Bank Loan System (the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of the terms, then you may not access the Service.</p>
+
+                <h4>2. Use of Service</h4>
+                <p>The Service is provided for the purpose of facilitating corporate loan applications and related financial services. You agree to use the Service only for lawful purposes and in a way that does not infringe the rights of, restrict or inhibit anyone else's use and enjoyment of the Service.</p>
+                <ul>
+                    <li>You must provide accurate and complete information during the application process.</li>
+                    <li>You are responsible for maintaining the confidentiality of your account login information.</li>
+                    <li>Any fraudulent or unauthorized activity is strictly prohibited.</li>
+                </ul>
+
+                <h4>3. Privacy Policy</h4>
+                <p>Your use of the Service is also governed by our Privacy Policy, which is incorporated into these Terms by reference. Please review our Privacy Policy to understand our practices regarding the collection, use, and disclosure of your personal information.</p>
+
+                <h4>4. Intellectual Property</h4>
+                <p>The Service and its original content, features, and functionality are and will remain the exclusive property of Corporate Bank Loan System and its licensors. The Service is protected by copyright, trademark, and other laws of both the [Your Country] and foreign countries.</p>
+
+                <h4>5. Limitation of Liability</h4>
+                <p>In no event shall Corporate Bank Loan System, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence) or any other legal theory, whether or not we have been informed of the possibility of such damage, and even if a remedy set forth herein is found to have failed of its essential purpose.</p>
+
+                <h4>6. Governing Law</h4>
+                <p>These Terms shall be governed and construed in accordance with the laws of [Your State/Country], without regard to its conflict of law provisions.</p>
+
+                <h4>7. Changes to Terms</h4>
+                <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+
+                <h4>8. Contact Us</h4>
+                <p>If you have any questions about these Terms, please contact us.</p>
+                <button class="read-more-button" onclick="toggleSection('terms')">Read Less</button>
+            </div>
+        </section>
+
+        <section class="collapsible-section-container" style="margin-top: 20px;">
+            <h2><i class="fas fa-headset"></i> Contact Us</h2>
+            <div class="section-snippet" id="contactSnippet">
+                <p>Have questions, feedback, or need assistance? Our support team is here to help you. Find our contact details and support options by clicking "Read More".</p>
+                <button class="read-more-button" onclick="toggleSection('contact')">Read More</button>
+            </div>
+            <div class="full-content" id="fullContact">
+                <h3>Get in Touch</h3>
+                <p>We're committed to providing excellent support. Here's how you can reach us:</p>
+
+                <h4>Customer Support Hotline:</h4>
+                <p><strong>Phone:</strong> +1-800-123-4567 (Available Monday - Friday, 9:00 AM - 5:00 PM EST)</p>
+
+                <h4>Email Support:</h4>
+                <p><strong>General Inquiries:</strong> <a href="mailto:info@yourbank.com">info@yourbank.com</a></p>
+                <p><strong>Loan Support:</strong> <a href="mailto:loans@yourbank.com">loans@yourbank.com</a></p>
+                <p><strong>Technical Support:</strong> <a href="mailto:techsupport@yourbank.com">techsupport@yourbank.com</a></p>
+
+                <h4>Mailing Address:</h4>
+                <p>Corporate Bank Loan System HQ<br>
+                   123 Financial Avenue<br>
+                   Suite 456<br>
+                   City, State, ZIP Code</p>
+
+                <h4>Online Inquiry Form:</h4>
+                <p>For non-urgent matters, you can fill out our online inquiry form <a href="#" style="color: #007bff; text-decoration: underline;">here</a>. We aim to respond within 24-48 business hours.</p>
+
+                <h4>Frequently Asked Questions (FAQ):</h4>
+                <p>Before reaching out, please check our <a href="#" style="color: #007bff; text-decoration: underline;">FAQ section</a> for immediate answers to common questions.</p>
+                <button class="read-more-button" onclick="toggleSection('contact')">Read Less</button>
+            </div>
+        </section>
+
+
+        <div class="logout-section">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="logout-button btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Blast Off! (Logout)
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        const userName = 'User'; 
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const greetingElement = document.getElementById('dynamicGreeting');
+            const currentHour = new Date().getHours();
+            let greeting = "Hello";
+
+            if (currentHour >= 5 && currentHour < 12) {
+                greeting = "Good Morning";
+            } else if (currentHour >= 12 && currentHour < 18) {
+                greeting = "Good Afternoon";
+            } else {
+                greeting = "Good Evening";
+            }
+
+            greetingElement.textContent = `🚀 ${greeting}, ${userName}! 🌟`;
+        });
+
+        // Function for the Loan Calculator 
+        function calculateEmi() {
+            const loanAmount = parseFloat(document.getElementById('calcLoanAmount').value);
+            const annualInterestRate = parseFloat(document.getElementById('calcInterestRate').value);
+            const loanTermYears = parseFloat(document.getElementById('calcLoanTerm').value);
+            const emiResultElement = document.getElementById('emiResult').querySelector('span');
+
+            if (isNaN(loanAmount) || isNaN(annualInterestRate) || isNaN(loanTermYears) ||
+                loanAmount <= 0 || annualInterestRate < 0 || loanTermYears <= 0) {
+                emiResultElement.textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            const monthlyInterestRate = (annualInterestRate / 100) / 12;
+            const loanTermMonths = loanTermYears * 12;
+
+            let emi;
+            if (monthlyInterestRate === 0) {
+                emi = loanAmount / loanTermMonths;
+            } else {
+                emi = loanAmount * monthlyInterestRate * Math.pow((1 + monthlyInterestRate), loanTermMonths) /
+                      (Math.pow((1 + monthlyInterestRate), loanTermMonths) - 1);
+            }
+
+            if (isNaN(emi) || !isFinite(emi)) {
+                 emiResultElement.textContent = "Calculation Error.";
+            } else {
+                emiResultElement.textContent = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }).format(emi);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', calculateEmi);
+
+        // JavaScript for "Read More" functionality for both Terms of Service and Contact Us
+        function toggleSection(sectionType) {
+            let snippetId, fullContentId;
+            if (sectionType === 'terms') {
+                snippetId = 'termsSnippet';
+                fullContentId = 'fullTerms';
+            } else if (sectionType === 'contact') {
+                snippetId = 'contactSnippet';
+                fullContentId = 'fullContact';
+            } else {
+                return; 
+            }
+
+            const snippet = document.getElementById(snippetId);
+            const fullContent = document.getElementById(fullContentId);
+            const button = snippet.querySelector('.read-more-button') || fullContent.querySelector('.read-more-button');
+
+            if (fullContent.style.display === 'none' || fullContent.style.display === '') {
+                snippet.style.display = 'none';
+                fullContent.style.display = 'block';
+                button.textContent = 'Read Less';
+            } else {
+                snippet.style.display = 'block';
+                fullContent.style.display = 'none';
+                button.textContent = 'Read More';
+            }
+        }
+    </script>
+</body>
+</html>

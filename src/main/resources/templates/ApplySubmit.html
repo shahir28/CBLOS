@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Submitted! 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/base-corporate.css}" />
+    <link rel="stylesheet" th:href="@{/css/app-corporate.css}" />
+</head>
+<body>
+    <div class="app-container">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h1>Hooray! Application Sent!</h1>
+        <p class="message">Your loan application has embarked on its journey! We're excited to review it.</p>
+
+        <p class="application-id">Your Application ID: <span id="appIdDisplay" th:text="${simulatedAppId}">Generating...</span></p>
+
+        <a th:href="@{/document/upload(applicationId=${simulatedAppId})}" class="button-link btn-primary">
+            <i class="fas fa-cloud-upload-alt"></i> Upload Your Documents Now!
+        </a>
+
+        <div class="instructions info-section">
+            <h3>Next Steps for a Speedy Approval:</h3>
+            <ul>
+                <li>Ensure all required documents are clear and readable.</li>
+                <li>Upload documents for all applicants if applicable.</li>
+                <li>You can always track your application status from the dashboard!</li>
+            </ul>
+            <p class="note">Having trouble? Our support team is ready to assist you!</p>
+        </div>
+
+        <a href="/user/dashboard" class="button-link btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</body>
+</html>

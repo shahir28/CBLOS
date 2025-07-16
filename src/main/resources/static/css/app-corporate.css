@@ -1,0 +1,886 @@
+/* app-corporate.css: Application-Specific Styles for Corporate Theme */
+
+/* General App Container */
+.app-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    max-width: 800px; /* Adjusted for general app content */
+    width: 100%;
+    margin: 30px auto;
+    text-align: center;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left; /* Align labels and inputs to the left */
+}
+
+.form-group label {
+    display: block; /* Ensure labels are on their own line */
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333d47;
+}
+
+/* Auth Pages (Login, Signup, Admin Login) */
+body.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); /* Light blue gradient */
+}
+
+body.admin-login-page {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); /* Light orange gradient for admin */
+}
+
+.auth-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.auth-container h2 {
+    color: #004085;
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+.admin-login-page .auth-container h2 {
+    color: #e67e22; /* Orange for admin login heading */
+}
+
+.btn-auth-submit {
+    width: 100%;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    margin-top: 20px;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-auth-submit:hover {
+    background: linear-gradient(45deg, #0056b3, #007bff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.admin-login-page .btn-auth-submit {
+    background: linear-gradient(45deg, #f0ad4e, #eb983a); /* Orange for admin button */
+}
+
+.admin-login-page .btn-auth-submit:hover {
+    background: linear-gradient(45deg, #eb983a, #f0ad4e);
+}
+
+.link-text {
+    margin-top: 20px;
+    font-size: 0.95em;
+    color: #666;
+}
+
+.link-text a {
+    font-weight: 600;
+    color: #007bff;
+}
+
+/* User Dashboard Specific Styles */
+.dashboard-container {
+    padding: 50px 30px;
+    max-width: 900px; /* Wider for dashboard content */
+}
+
+.dashboard-header .greeting {
+    font-size: 2.5em;
+    color: #004085;
+    margin-bottom: 10px;
+}
+
+.dashboard-header .tagline {
+    font-size: 1.1em;
+    color: #5a6268;
+    margin-bottom: 40px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.feature-card {
+    background-color: #f0f8ff; /* Light blue card background */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #cceeff;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.feature-card a {
+    display: block; /* Make the whole card clickable */
+    text-decoration: none;
+    color: inherit; /* Inherit text color from parent */
+}
+
+.feature-card .icon {
+    font-size: 3em;
+    color: #007bff; /* Blue icon */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.feature-card:hover .icon {
+    transform: scale(1.1);
+}
+
+.feature-card h3 {
+    font-size: 1.5em;
+    color: #004085;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 0.95em;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.feature-card .call-to-action {
+    font-weight: 600;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.feature-card .call-to-action .fas {
+    transition: transform 0.3s ease-in-out;
+}
+
+.feature-card:hover .call-to-action .fas {
+    transform: translateX(5px);
+}
+
+.info-section {
+    background-color: #e9f5ff; /* Lighter blue for info section */
+    border-radius: 10px;
+    padding: 25px;
+    text-align: left;
+    margin-top: 30px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #aed6f1;
+}
+
+.info-section h2 {
+    color: #004085;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.info-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-section li {
+    background-color: #d6eaf8; /* Even lighter blue for list items */
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333d47;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.info-section li::before {
+    content: "\f05a"; /* Font Awesome info-circle icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #007bff;
+    font-size: 1.1em;
+}
+
+.info-section .note {
+    margin-top: 20px;
+    font-style: italic;
+    color: #6c757d;
+    text-align: center;
+}
+
+.dashboard-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9em;
+    color: #777;
+}
+
+.dashboard-footer .footer-links a {
+    margin: 0 10px;
+    color: #007bff;
+    font-weight: normal;
+}
+
+/* Logout Section */
+.logout-section {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Loan Application Form Specific Styles */
+.loan-form-container {
+    max-width: 600px;
+}
+
+.loan-form-container h1 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+.loan-form-container form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333d47;
+    text-align: left;
+}
+
+/* Loan Status Page Specific Styles */
+.loan-status-card {
+    background-color: #f0f8ff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    margin-bottom: 20px;
+    text-align: left;
+    border: 1px solid #aed6f1;
+}
+
+.loan-status-card p {
+    margin-bottom: 10px;
+    font-size: 1.05em;
+    color: #333d47;
+}
+
+.loan-status-card strong {
+    color: #004085;
+    min-width: 150px; /* Align labels */
+    display: inline-block;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.85em;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+    color: white;
+}
+
+.status-pending { background-color: #ffc107; } /* Yellow */
+.status-approved { background-color: #28a745; } /* Green */
+.status-rejected { background-color: #dc3545; } /* Red */
+.status-disbursed { background-color: #17a2b8; } /* Teal */
+
+/* CIBIL Calculator Specific Styles */
+.calculator-container {
+    max-width: 700px;
+}
+
+.calculator-header h1 {
+    color: #28a745; /* Green for calculator heading */
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.calculator-header p {
+    font-size: 1.1em;
+    color: #5a6268;
+    margin-bottom: 30px;
+}
+
+.input-section {
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #cceeff;
+}
+
+.input-section .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align labels to left */
+    margin-bottom: 25px;
+}
+
+.input-section .form-group label {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #004085;
+}
+
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    border-radius: 5px;
+}
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff; /* Blue thumb */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff; /* Blue thumb */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.range-value {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #004085;
+}
+
+.calculate-button {
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.calculate-button:hover {
+    background: linear-gradient(45deg, #218838, #28a745);
+}
+
+.result-section {
+    background-color: #e8f8f5; /* Light green background */
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid #a2d9ce;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.result-section h2 {
+    color: #218838;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.score-display {
+    font-size: 3.5em;
+    font-weight: 800;
+    color: #28a745;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.score-display .emoji {
+    font-size: 1em; /* Keep emoji size relative to score */
+    transition: transform 0.3s ease-out;
+}
+
+.score-display.animate .emoji {
+    animation: bounce 0.8s infinite alternate;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.score-message {
+    font-size: 1.1em;
+    color: #5a6268;
+}
+
+.calculator-footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Document Upload Page Specific Styles */
+.document-upload-container {
+    max-width: 600px;
+}
+
+.document-upload-container h2 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+.instructions-text {
+    font-size: 1.05em;
+    color: #5a6268;
+    margin-bottom: 30px;
+}
+
+.dummy-values {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.dummy-values strong {
+    color: #004085;
+}
+
+/* Modal Styles (for pop-ups like success messages) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: fadeInScale 0.3s ease-out;
+
+    /* --- FIX FOR BUTTON LAYOUT --- */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center items horizontally */
+    gap: 15px; /* Space between stacked items */
+    /* --- END FIX --- */
+}
+
+.modal-content .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: #6c757d;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.modal-content .close-button:hover {
+    color: #333d47;
+}
+
+.modal-content .icon-success {
+    font-size: 4em;
+    color: #28a745; /* Green checkmark */
+    margin-bottom: 10px; /* Reduced margin due to gap */
+}
+
+.modal-content h3 {
+    color: #004085;
+    font-size: 1.8em;
+    margin-bottom: 5px; /* Reduced margin due to gap */
+}
+
+.modal-content p {
+    font-size: 1.1em;
+    color: #5a6268;
+    margin-bottom: 10px; /* Reduced margin due to gap */
+}
+
+.modal-content .app-id-display {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #004085;
+    background-color: #e9ecef;
+    padding: 10px 15px;
+    border-radius: 5px;
+    /* display: inline-block; Removed this as flex-direction: column handles stacking */
+    margin-bottom: 0; /* Handled by gap */
+}
+
+.modal-content .track-button {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin-top: 0; /* Handled by gap */
+}
+
+.modal-content .track-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Admin Dashboard Metrics */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.metric-card {
+    background-color: #e9f5ff; /* Light blue */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #aed6f1;
+}
+
+.metric-card .value {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+.metric-card .label {
+    font-size: 0.95em;
+    color: #5a6268;
+}
+
+.admin-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.admin-card {
+    background-color: #f0f8ff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #cceeff;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.admin-card a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.admin-card .icon {
+    font-size: 3em;
+    color: #e67e22; /* Orange icon for admin */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.admin-card:hover .icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.admin-card h3 {
+    font-size: 1.5em;
+    color: #004085;
+    margin-bottom: 10px;
+}
+
+.admin-card p {
+    font-size: 0.95em;
+    color: #6c757d;
+}
+
+/* Admin Loan Details Page */
+.loan-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 15px 30px; /* Row gap, column gap */
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    text-align: left;
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+}
+
+.loan-info-grid div {
+    padding: 5px 0;
+}
+
+.loan-info-grid strong {
+    color: #004085;
+    display: inline-block;
+    min-width: 120px; /* Align content */
+}
+
+.section-title {
+    font-size: 1.8em;
+    color: #004085;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.document-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.document-list li {
+    background-color: #e9ecef;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    color: #333d47;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.document-list li span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.document-list li .fas {
+    color: #007bff;
+}
+
+.evaluation-form {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 30px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.evaluation-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333d47;
+}
+
+.evaluation-form button {
+    margin-top: 20px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.action-buttons button {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 8px;
+}
+
+/* Admin Manage Users & Edit User */
+.user-table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+table th {
+    background-color: #f0f8ff;
+    color: #004085;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #e6f7ff;
+}
+
+.action-buttons-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.action-buttons-group .button-link,
+.action-buttons-group button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border-radius: 20px;
+    min-width: unset; /* Override default button min-width */
+    box-shadow: none; /* Remove default shadow for smaller buttons */
+}
+.action-buttons-group .button-link:hover,
+.action-buttons-group button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.action-buttons-group .btn-danger {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+}
+.action-buttons-group .btn-danger:hover {
+    background: linear-gradient(45deg, #c82333, #dc3545);
+}
+
+.form-control-readonly {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.text-muted {
+    font-size: 0.85em;
+    color: #6c757d;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .app-container, .auth-container, .dashboard-container, .calculator-container, .document-upload-container {
+        padding: 25px 15px;
+        margin: 15px auto;
+    }
+
+    h1 { font-size: 2.2em; }
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.5em; }
+
+    .feature-grid, .metrics-grid, .admin-options, .loan-info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .action-buttons button {
+        width: 100%;
+    }
+
+    table th, table td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .loan-info-grid strong {
+        min-width: unset;
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.6em; }
+    .auth-container h2 { font-size: 1.8em; }
+    .dashboard-header .greeting { font-size: 2em; }
+    .score-display { font-size: 3em; }
+}

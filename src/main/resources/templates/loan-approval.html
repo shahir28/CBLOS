@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Loan Approval</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h2>Loan Approval</h2>
+    <form th:action="@{/approval/submit}" th:object="${approval}" method="post">
+       	<label>Application ID: <input type="number" th:field="*{application.applicationId}" /></label><br/>
+        <label>Approver ID: <input type="number" th:field="*{approverId}" /></label><br/>
+        <label>Status:
+            <select th:field="*{approvalStatus}">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+        </label><br/>
+        <label>Comments: <input type="text" th:field="*{comments}" /></label><br/>
+        <button type="submit">Approve</button>
+    </form>
+</body>
+</html>

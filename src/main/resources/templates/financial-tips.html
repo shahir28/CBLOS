@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>💡 Smart Financial Tips - HARNASHA CBLOS! 💰</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body & Background */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding-top: 80px; /* Space for fixed navigation */
+            background: linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 100%); /* Light green to light blue gradient */
+            background-size: 400% 400%;
+            animation: gradientShiftTips 18s ease infinite alternate;
+            color: #37474f; /* Dark slate grey */
+            min-height: 100vh;
+            box-sizing: border-box;
+            line-height: 1.7;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes gradientShiftTips {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Nav Bar (consistent with home/contact) */
+        nav {
+            background-color: #66bb6a; /* Vibrant Green */
+            padding: 12px 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 3px solid #a5d6a7; /* Lighter green accent */
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            font-family: 'Quicksand', sans-serif;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #4caf50, #388e3c); /* Darker green gradient */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-weight: 700;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a:hover {
+            background: linear-gradient(45deg, #388e3c, #4caf50);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        nav a .fas {
+            transition: transform 0.3s ease-in-out;
+        }
+        nav a:hover .fas {
+            transform: rotate(10deg);
+        }
+
+        /* Main Content Container */
+        .tips-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            animation: fadeInTips 1.2s ease-out forwards;
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #a5d6a7; /* Light green border */
+        }
+
+        @keyframes fadeInTips {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Decorative "Sparkle" elements */
+        .tips-container::before,
+        .tips-container::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(12px);
+            animation: floatBubbleTips 15s infinite alternate ease-in-out;
+        }
+
+        .tips-container::before {
+            width: 150px;
+            height: 150px;
+            background-color: #ffab91; /* Light coral */
+            top: -50px;
+            left: -50px;
+            animation-delay: 0s;
+        }
+
+        .tips-container::after {
+            width: 180px;
+            height: 180px;
+            background-color: #ffecb3; /* Light yellow */
+            bottom: -60px;
+            right: -60px;
+            animation-delay: 2s;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes floatBubbleTips {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 20px) scale(1.08); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        h1 {
+            color: #2e7d32; /* Darker green */
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            font-weight: 800;
+            animation: headerPopIn 1s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        @keyframes headerPopIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            80% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #66bb6a; /* Vibrant Green */
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .tip-card {
+            background-color: #f1f8e9; /* Very light green */
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            border: 2px solid #c5e1a5; /* Light green border */
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            background-color: #e6ffed; /* Slightly brighter green on hover */
+        }
+
+        .tip-card h3 {
+            color: #2e7d32; /* Darker green */
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .tip-card h3 i {
+            font-size: 1.2em;
+            color: #66bb6a; /* Vibrant Green icon */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .tip-card:hover h3 i {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .tip-content {
+            font-size: 1em;
+            color: #546e7a;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+            opacity: 0;
+            padding-top: 5px;
+        }
+
+        .tip-card.expanded .tip-content {
+            max-height: 500px; /* Adjust based on max content height */
+            opacity: 1;
+        }
+
+        .read-more-button {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: #81c784; /* Soft green */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .read-more-button:hover {
+            background-color: #66bb6a; /* Darker green on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Back to Dashboard Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 50px;
+            background: linear-gradient(45deg, #007bff, #0056b3); /* Blue gradient */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(45deg, #0056b3, #007bff);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer (consistent with home/contact) */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #66bb6a; /* Same as nav background */
+            color: #fff;
+            margin-top: auto;
+            border-top: 3px dashed #a5d6a7;
+            font-size: 0.95em;
+            box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            nav { justify-content: center; gap: 10px; padding: 10px; }
+            nav a { font-size: 0.9em; padding: 8px 15px; }
+            .tips-container { padding: 30px; margin: 20px auto; }
+            h1 { font-size: 2.8em; }
+            .subtitle { font-size: 1.3em; }
+            .tips-grid { grid-template-columns: 1fr; gap: 20px; }
+            .tip-card { padding: 20px; }
+            .tip-card h3 { font-size: 1.6em; }
+            .tip-content { font-size: 0.95em; }
+            footer { padding: 20px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding-top: 60px; }
+            nav { gap: 5px; }
+            nav a { font-size: 0.8em; padding: 6px 10px; }
+            .tips-container { padding: 20px; }
+            h1 { font-size: 2.2em; }
+            .subtitle { font-size: 1.1em; }
+            .tip-card h3 { font-size: 1.4em; }
+            .read-more-button { font-size: 0.85em; padding: 6px 12px; }
+            .back-button { font-size: 1em; padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a th:href="@{/home}"><i class="fas fa-home"></i> HARNASHA CBLOS Home</a>
+        <a th:href="@{/about}"><i class="fas fa-lightbulb"></i> About Our Vision!</a>
+        <a th:href="@{/contact}"><i class="fas fa-comments"></i> Chat with Us!</a>
+        <a th:href="@{/login}"><i class="fas fa-user-circle"></i> User Login</a>
+        <a th:href="@{/admin/login}"><i class="fas fa-user-shield"></i> Admin Access</a>
+        <a th:href="@{/signup}"><i class="fas fa-user-plus"></i> Join the Fun!</a>
+    </nav>
+
+    <div class="tips-container">
+        <h1>💡 Your Smart Financial Tips Hub! 💰</h1>
+        <p class="subtitle">Unlock secrets to boost your financial well-being and make your money smile!</p>
+
+        <div class="tips-grid">
+            <div class="tip-card" onclick="toggleTip(this)">
+                <h3><i class="fas fa-piggy-bank"></i> Budgeting Bliss: Your Money Map!</h3>
+                <div class="tip-content">
+                    <p>Creating a budget isn't about restricting yourself; it's about giving every dollar a job! Know where your money goes to make smarter decisions. Start by tracking your income and expenses for a month. Categorize everything, then set spending limits for each category. Don't forget to include savings as a non-negotiable "expense"!</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> **Track Everything:** Use an app, spreadsheet, or notebook.</li>
+                        <li><i class="fas fa-check-circle"></i> **Categorize Spending:** Food, transport, entertainment, etc.</li>
+                        <li><i class="fas fa-check-circle"></i> **Set Limits:** Decide how much to spend in each category.</li>
+                        <li><i class="fas fa-check-circle"></i> **Review Regularly:** Adjust your budget as your life changes.</li>
+                    </ul>
+                </div>
+                <span class="read-more-button">Read More <i class="fas fa-chevron-down"></i></span>
+            </div>
+
+            <div class="tip-card" onclick="toggleTip(this)">
+                <h3><i class="fas fa-coins"></i> Saving Superpowers: Grow Your Treasure!</h3>
+                <div class="tip-content">
+                    <p>Saving money can feel like a superpower! Start small, be consistent, and watch your financial treasure chest grow. Automate your savings by setting up regular transfers from your checking to your savings account. Think about your short-term (emergency fund) and long-term (retirement, big purchases) goals.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> **Automate Savings:** Set up recurring transfers.</li>
+                        <li><i class="fas fa-check-circle"></i> **Emergency Fund:** Aim for 3-6 months of living expenses.</li>
+                        <li><i class="fas fa-check-circle"></i> **Set Goals:** What are you saving for? A trip? A house?</li>
+                        <li><i class="fas fa-check-circle"></i> **Cut Unnecessary Expenses:** Small cuts add up!</li>
+                    </ul>
+                </div>
+                <span class="read-more-button">Read More <i class="fas fa-chevron-down"></i></span>
+            </div>
+
+            <div class="tip-card" onclick="toggleTip(this)">
+                <h3><i class="fas fa-hand-holding-dollar"></i> Debt Demolition: Conquer Your Loans!</h3>
+                <div class="tip-content">
+                    <p>Tackling debt can be daunting, but with a solid plan, you can demolish it! Prioritize high-interest debts first (like credit cards) using the "debt snowball" or "debt avalanche" method. Celebrate small victories along the way to stay motivated!</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> **List All Debts:** Know what you owe.</li>
+                        <li><i class="fas fa-check-circle"></i> **Prioritize:** High interest (avalanche) or smallest balance (snowball).</li>
+                        <li><i class="fas fa-check-circle"></i> **Extra Payments:** Even small extra payments make a difference.</li>
+                        <li><i class="fas fa-check-circle"></i> **Avoid New Debt:** Don't dig a deeper hole.</li>
+                    </ul>
+                </div>
+                <span class="read-more-button">Read More <i class="fas fa-chevron-down"></i></span>
+            </div>
+
+            <div class="tip-card" onclick="toggleTip(this)">
+                <h3><i class="fas fa-chart-area"></i> Investing Insights: Let Your Money Work!</h3>
+                <div class="tip-content">
+                    <p>Investing isn't just for the super-rich! Even small amounts can grow significantly over time thanks to the magic of compounding. Start by understanding your risk tolerance and financial goals. Consider low-cost index funds or ETFs for beginners.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> **Start Early:** Time is your best friend in investing.</li>
+                        <li><i class="fas fa-check-circle"></i> **Diversify:** Don't put all your eggs in one basket.</li>
+                        <li><i class="fas fa-check-circle"></i> **Invest Consistently:** Dollar-cost averaging.</li>
+                        <li><i class="fas fa-check-circle"></i> **Educate Yourself:** Learn the basics before diving deep.</li>
+                    </ul>
+                </div>
+                <span class="read-more-button">Read More <i class="fas fa-chevron-down"></i></span>
+            </div>
+
+            <div class="tip-card" onclick="toggleTip(this)">
+                <h3><i class="fas fa-star"></i> Credit Score Secrets: Your Financial Report Card!</h3>
+                <div class="tip-content">
+                    <p>Your credit score is like your financial report card – it tells lenders how responsible you are. A good score opens doors to better loan rates and opportunities. Pay bills on time, keep credit utilization low, and check your report for errors regularly.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> **Pay Bills On Time:** This is HUGE!</li>
+                        <li><i class="fas fa-check-circle"></i> **Keep Utilization Low:** Below 30% is ideal.</li>
+                        <li><i class="fas fa-check-circle"></i> **Check Your Report:** Annually for errors.</li>
+                        <li><i class="fas fa-check-circle"></i> **Don't Close Old Accounts:** Longer history helps.</li>
+                    </ul>
+                </div>
+                <span class="read-more-button">Read More <i class="fas fa-chevron-down"></i></span>
+            </div>
+
+            <div class="tip-card" onclick="toggleTip(this)">
+                <h3><i class="fas fa-shield-alt"></i> Emergency Fund Fun: Your Safety Net!</h3>
+                <div class="tip-content">
+                    <p>An emergency fund is your financial superhero! It protects you from unexpected expenses like job loss, medical emergencies, or car repairs without going into debt. Aim for 3-6 months of essential living expenses in an easily accessible, separate savings account.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> **Separate Account:** Keep it distinct from regular savings.</li>
+                        <li><i class="fas fa-check-circle"></i> **Automatic Transfers:** Build it consistently.</li>
+                        <li><i class="fas fa-check-circle"></i> **Only for Emergencies:** Resist the urge to dip into it for non-emergencies.</li>
+                        <li><i class="fas fa-check-circle"></i> **Replenish:** If you use it, build it back up!</li>
+                    </ul>
+                </div>
+                <span class="read-more-button">Read More <i class="fas fa-chevron-down"></i></span>
+            </div>
+        </div>
+
+        <a th:href="@{/user/dashboard}" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <footer>
+        Made with ❤️ and a sprinkle of joy by HARNASHA - Bringing Fun to Finance! ✨
+    </footer>
+
+    <script>
+        function toggleTip(card) {
+            card.classList.toggle('expanded');
+            const content = card.querySelector('.tip-content');
+            const button = card.querySelector('.read-more-button');
+
+            if (card.classList.contains('expanded')) {
+                content.style.maxHeight = content.scrollHeight + "px"; // Set max-height to scrollHeight
+                button.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+            } else {
+                content.style.maxHeight = "0";
+                button.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+            }
+        }
+    </script>
+</body>
+</html>

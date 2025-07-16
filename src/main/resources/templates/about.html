@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>🚀 About HARNASHA CBLOS: Our Epic Fun Journey! 🌟</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body & Background - Super Fun Theme */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding-top: 80px; /* Space for fixed navigation */
+            background: linear-gradient(135deg, #fdfd96 0%, #ffb3ba 50%, #a7e9af 100%); /* Light yellow, pink, green gradient */
+            background-size: 400% 400%;
+            animation: gradientDance 20s ease infinite alternate; /* Slower, dancing gradient */
+            color: #333; /* Dark grey for primary text */
+            min-height: 100vh;
+            box-sizing: border-box;
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            display: flex;
+            flex-direction: column;
+        }
+ 
+        @keyframes gradientDance {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Nav Bar - Vibrant & Playful */
+        nav {
+            background-color: #e91e63; /* Deep Pink */
+            padding: 12px 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 3px solid #f48fb1; /* Lighter pink accent */
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+ 
+        nav a {
+            font-family: 'Quicksand', sans-serif;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #ff4081, #e91e63); /* Pink gradient */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-weight: 700;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+ 
+        nav a:hover {
+            background: linear-gradient(45deg, #e91e63, #ff4081);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        nav a .fas {
+            transition: transform 0.3s ease-in-out;
+        }
+        nav a:hover .fas {
+            transform: rotate(10deg);
+        }
+ 
+        /* Main Container for About Page - Playful */
+        .about-container {
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            animation: fadeInAbout 1.2s ease-out forwards;
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            border: 3px dashed #ff9800; /* Vibrant orange dashed border */
+        }
+
+        @keyframes fadeInAbout {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Decorative "Confetti" elements */
+        .about-container::before,
+        .about-container::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(10px);
+            animation: floatConfettiAbout 15s infinite alternate ease-in-out;
+        }
+
+        .about-container::before {
+            width: 120px;
+            height: 120px;
+            background-color: #ffeb3b; /* Yellow */
+            top: -50px;
+            left: -50px;
+            animation-delay: 0s;
+        }
+
+        .about-container::after {
+            width: 150px;
+            height: 150px;
+            background-color: #64ffda; /* Aqua */
+            bottom: -60px;
+            right: -60px;
+            animation-delay: 2s;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes floatConfettiAbout {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 20px) scale(1.08); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+ 
+        /* Headings - NO ENTRANCE ANIMATIONS */
+        h1 {
+            color: #ff5722; /* Vibrant Orange-Red */
+            font-size: 4em;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+            font-weight: 800;
+            /* Removed animation: headerBounce */
+            opacity: 1; /* Ensure it's always visible */
+            transform: translateY(0); /* Ensure it's in final position */
+            animation: pulseColor 4s infinite alternate; /* Keep existing pulse animation */
+        }
+ 
+        @keyframes pulseColor {
+            0% { color: #ff5722; }
+            50% { color: #e91e63; } /* Deep pink pulse */
+            100% { color: #ff5722; }
+        }
+
+        h2 {
+            color: #4caf50; /* Cheerful Green */
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            /* Removed animation: subHeaderFadeIn */
+            opacity: 1; /* Ensure it's always visible */
+            transform: translateY(0); /* Ensure it's in final position */
+        }
+ 
+        /* Paragraphs */
+        p {
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: center; /* Center align paragraphs */
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #555;
+        }
+ 
+        /* List Items - More Playful */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center the list items */
+            width: 100%;
+        }
+ 
+        ul li {
+            margin-bottom: 18px; /* More space */
+            font-size: 1.25em;
+            color: #555;
+            padding-left: 0; /* Remove left padding as icon is part of content */
+            position: relative;
+            text-align: center; /* Center text within list item */
+            width: fit-content;
+            transition: transform 0.3s ease, color 0.3s ease;
+            background-color: #fffde7; /* Light yellow background */
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+ 
+        ul li:hover {
+            transform: translateY(-5px) scale(1.02);
+            color: #e91e63; /* Pink on hover */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+ 
+        ul li .fas {
+            font-size: 1.3em;
+            color: #ff9800; /* Orange icon */
+            animation: bounceIcon 1.5s infinite alternate;
+        }
+
+        @keyframes bounceIcon {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+ 
+        /* Fun Fact Section - More Pop! */
+        .fun-fact {
+            background-color: #ffecb3; /* Light yellow */
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 40px;
+            font-style: italic;
+            border: 4px dotted #ff9800; /* Vibrant orange dotted border */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            animation: factPulse 3s infinite alternate;
+        }
+ 
+        @keyframes factPulse {
+            0% { border-color: #ff9800; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
+            100% { border-color: #ff7043; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); }
+        }
+
+        .fun-fact::before {
+            content: '🤯'; /* Emoji for fun fact */
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.5em;
+            opacity: 0.8;
+        }
+ 
+        .fun-fact h3 {
+            color: #ff5722; /* Vibrant orange-red */
+            font-size: 2em;
+            margin-bottom: 15px;
+            margin-top: 25px;
+            font-weight: 700;
+        }
+ 
+        .fun-fact p {
+            font-size: 1.1em;
+            color: #666;
+            text-align: center;
+            font-weight: 500;
+        }
+ 
+        /* Mission Statement - Bold & Clear */
+        .mission-statement {
+            font-size: 1.6em;
+            font-weight: 800;
+            color: #212121;
+            margin-top: 50px;
+            padding: 25px;
+            border: 3px solid #4CAF50; /* Green border */
+            border-radius: 15px;
+            background-color: #e8f5e9; /* Light green background */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            animation: missionGlow 4s infinite alternate;
+        }
+ 
+        @keyframes missionGlow {
+            0% { border-color: #4CAF50; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); }
+            100% { border-color: #81c784; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        }
+
+        .mission-statement::before {
+            content: '🎯';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 2em;
+            animation: rotateTarget 3s infinite linear;
+        }
+
+        @keyframes rotateTarget {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+ 
+        .mission-statement::after {
+            content: '🚀';
+            position: absolute;
+            bottom: -15px;
+            right: 20px;
+            font-size: 2em;
+            animation: bounceRocket 2s infinite alternate;
+        }
+
+        @keyframes bounceRocket {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+ 
+        /* Team Members Section - Fun & Animated */
+        .team-members {
+            display: flex;
+            justify-content: center; /* Center the team members */
+            margin-top: 50px;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+ 
+        .team-member {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 20px; /* More rounded */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            width: 250px; /* Slightly wider */
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            border: 2px solid #ffcc80; /* Light orange border */
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+ 
+        .team-member:hover {
+            transform: translateY(-15px) rotate(3deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            border-color: #ff7043; /* Change border on hover */
+        }
+
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 40px;
+            height: 40px;
+            background-color: #ffeb3b; /* Yellow "sticker" */
+            border-radius: 5px;
+            opacity: 0.8;
+            transition: transform 0.3s ease;
+        }
+        .team-member:hover::before {
+            transform: translateX(-50%) rotate(0deg) scale(1.2);
+        }
+ 
+        .team-emoji {
+            font-size: 4.5em; /* Larger emoji */
+            margin-bottom: 15px;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+ 
+        .team-member:hover .team-emoji {
+            transform: scale(1.2) rotate(-10deg);
+        }
+ 
+        .team-member h3 { /* Changed from h4 to h3 for prominence */
+            color: #e91e63; /* Deep Pink */
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+ 
+        .team-member .nickname {
+            font-size: 1.1em;
+            color: #777;
+            font-style: italic;
+            margin-bottom: 0;
+        }
+ 
+        .team-member .highlight-nickname {
+            font-weight: 700;
+            color: #ff9800; /* Vibrant orange */
+            background-color: #fff8e1; /* Light yellow background */
+            padding: 2px 8px;
+            border-radius: 8px;
+            white-space: nowrap;
+            display: inline-block; /* Ensure padding works */
+            transition: background-color 0.3s ease;
+        }
+        .team-member:hover .highlight-nickname {
+            background-color: #ffe0b2; /* Slightly darker yellow on hover */
+        }
+ 
+        /* Back to Home Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #4CAF50, #28a745); /* Green gradient */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px; /* Pill shape */
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+            margin-top: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+ 
+        .back-button:hover {
+            background: linear-gradient(45deg, #28a745, #4CAF50);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer - Consistent with Nav */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #e91e63; /* Deep Pink */
+            color: #fff;
+            margin-top: auto; /* Push footer to the bottom */
+            border-top: 3px dashed #f48fb1;
+            font-size: 0.95em;
+            box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.25);
+        }
+ 
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .about-container { padding: 30px; margin: 20px auto; }
+            h1 { font-size: 3.2em; }
+            h2 { font-size: 2.2em; }
+            p { font-size: 1.05em; }
+            ul li { font-size: 1.1em; }
+            .fun-fact h3 { font-size: 1.8em; }
+            .team-member { width: 45%; } /* Two columns on medium screens */
+        }
+ 
+        @media (max-width: 768px) {
+            body { padding-top: 70px; }
+            nav { justify-content: center; gap: 10px; padding: 10px; }
+            nav a { font-size: 0.9em; padding: 8px 15px; }
+            .about-container { padding: 25px; margin: 15px auto; }
+            h1 { font-size: 2.5em; letter-spacing: 1px; }
+            h2 { font-size: 1.8em; }
+            p { font-size: 0.95em; }
+            ul li { font-size: 1em; padding: 8px 15px; }
+            .fun-fact h3 { font-size: 1.5em; }
+            .team-member { width: 90%; } /* Single column on small screens */
+            .team-emoji { font-size: 3.5em; }
+            .team-member h3 { font-size: 1.6em; }
+            footer { padding: 20px; margin-top: 30px; }
+        }
+ 
+        @media (max-width: 480px) {
+            body { padding-top: 60px; }
+            nav { gap: 5px; }
+            nav a { font-size: 0.8em; padding: 6px 10px; }
+            .about-container { padding: 15px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.5em; }
+            .fun-fact h3 { font-size: 1.3em; }
+            .team-emoji { font-size: 3em; }
+            .team-member h3 { font-size: 1.4em; }
+            .team-member .nickname { font-size: 0.9em; }
+            .back-button { font-size: 1em; padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a th:href="@{/home}"><i class="fas fa-home"></i> HARNASHA CBLOS Home</a>
+        <a th:href="@{/about}"><i class="fas fa-lightbulb"></i> About Our Vision!</a>
+        <a th:href="@{/contact}"><i class="fas fa-comments"></i> Chat with Us!</a>
+        <a th:href="@{/login}"><i class="fas fa-user-circle"></i> User Login</a>
+        <a th:href="@{/admin/login}"><i class="fas fa-user-shield"></i> Admin Access</a>
+        <a th:href="@{/signup}"><i class="fas fa-user-plus"></i> Join the Fun!</a>
+    </nav>
+
+    <div class="about-container">
+        <h1>🚀 About HARNASHA CBLOS: Our Epic Fun Journey! 🌟</h1>
+        <h2>Why CBLOS is the Ultimate Game-Changer! 🎮</h2>
+        <p>
+            In the thrilling arena of corporate banking, where every second counts, HARNASHA's Corporate Banking Loan Origination System (CBLOS) isn't just software – it's your secret weapon! We're here to completely transform how corporate loans are born, nurtured, and managed. We totally get the hurdles banks face: tangled workflows, endless regulations, tricky risk assessments, and the quest for seamless teamwork. Guess what? CBLOS blasts through these challenges like a superhero, delivering a platform that's not just robust and intuitive, but also ridiculously fun to use! Get ready to dominate the competitive financial landscape!
+        </p>
+ 
+        <h2>How HARNASHA Makes Magic Happen! ✨</h2>
+        <p>
+            At HARNASHA, we don't just write code; we craft digital masterpieces! Here's the spellbook of what makes CBLOS absolutely legendary:
+        </p>
+        <ul>
+            <li><i class="fas fa-bolt"></i> <span>Lightning-Fast Efficiency:</span> CBLOS zaps the entire loan origination process, automating everything from start to finish. Say goodbye to bottlenecks and hello to supersonic turnaround times!</li>
+            <li><i class="fas fa-brain"></i> <span>Brainy Automation:</span> From smart data capture to AI-powered risk assessment, CBLOS uses cutting-edge AI and machine learning to supercharge your decision-making. It's like having a financial wizard on your team!</li>
+            <li><i class="fas fa-eye"></i> <span>Crystal-Clear Transparency:</span> Everyone involved gets real-time, X-ray vision into the loan status. This means more high-fives, less confusion, and a whole lot of trust!</li>
+            <li><i class="fas fa-adjust"></i> <span>Chameleon-Like Flexibility:</span> CBLOS is a chameleon! It effortlessly adapts to your bank's unique moves and the ever-changing regulatory dance.</li>
+            <li><i class="fas fa-shield-alt"></i> <span>Fortified Risk Management:</span> Our advanced credit evaluation tools and risk scoring models are like a shield, helping you make super-smart lending decisions with confidence.</li>
+            <li><i class="fas fa-plug"></i> <span>Seamless Integration Superpower:</span> CBLOS plays nice with everyone! It effortlessly connects with your core banking systems, external credit bureaus, and all your essential platforms, creating a unified financial Avengers team!</li>
+            <li><i class="fas fa-heart"></i> <span>User-Love Design:</span> We're obsessed with making your life easy! Our interface isn't just user-friendly; it's a joy to use, turning the loan origination process into a delightful stroll in the park.</li>
+        </ul>
+ 
+        <p>
+            We truly believe that technology should be your trusty sidekick, not a villain! That's why we've poured our hearts, souls, and a sprinkle of magic into creating CBLOS – a system that's as powerful as a dragon and as delightful as a unicorn!
+        </p>
+ 
+        <div class="fun-fact">
+            <h3>🤯 Mind-Blowing Fun Fact! 🤯</h3>
+            <p>
+                Did you know that HARNASHA's CBLOS has helped our awesome partner banks slash loan processing times by an incredible <strong>40% on average</strong>? That's right! More time for bankers to forge epic relationships and less time wrestling with paperwork! 🥳
+            </p>
+        </div>
+ 
+        <p class="mission-statement">
+            🎯 Our Mission: To empower financial institutions with cutting-edge technology that transforms corporate lending, ignites efficiency, and sparks sustainable growth! 🚀
+        </p>
+ 
+        <h2>Meet the Dream Team! 🌟</h2>
+        <div class="team-members">
+            <div class="team-member">
+                <span class="team-emoji">👨‍💻</span>
+                <h3>Hari Prasath</h3>
+                <p class="nickname">aka <span class="highlight-nickname">Hariiii</span></p>
+            </div>
+            <div class="team-member">
+                <span class="team-emoji">🕵️‍♂️</span>
+                <h3>Shahir Ali</h3>
+                <p class="nickname">aka <span class="highlight-nickname">Shabby</span></p>
+            </div>
+            <div class="team-member">
+                <span class="team-emoji">💡</span>
+                <h3>Nandhakishore</h3>
+                <p class="nickname">aka <span class="highlight-nickname">Nandhu</span></p>
+            </div>
+        </div>
+ 
+        <a th:href="@{/home}" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to the Adventure Hub!
+        </a>
+    </div>
+
+    <footer>
+        Crafted with ❤️ and cosmic dust by HARNASHA - Navigating Finance, One Star at a Time! ✨
+    </footer>
+</body>
+</html>

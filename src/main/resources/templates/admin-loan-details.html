@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Details: <span th:text="${loan.companyName}"></span> 📋</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/base-corporate.css}" />
+    <link rel="stylesheet" th:href="@{/css/app-corporate.css}" />
+    <style>
+        /* Specific styles for Loan Details Page */
+        .loan-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px 30px;
+            background-color: #f8f9fa; /* Light background for info grid */
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 1px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+        .loan-info-grid div {
+            padding: 5px 0;
+            color: #333;
+        }
+        .loan-info-grid strong {
+            color: #2c3e50;
+            min-width: 150px;
+            display: inline-block;
+        }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+        .status-pending { background-color: #ffc10720; color: #ffc107; } /* Yellow */
+        .status-approved { background-color: #28a74520; color: #28a745; } /* Green */
+        .status-rejected { background-color: #dc354520; color: #dc3545; } /* Red */
+        .status-disbursed { background-color: #007bff20; color: #007bff; } /* Blue */
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .document-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .document-list li {
+            background-color: #f0f2f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1em;
+            color: #333;
+        }
+        .document-list li i {
+            margin-right: 10px;
+            color: #007bff;
+        }
+        .evaluation-form {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: inset 0 1px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+        .evaluation-form .form-group {
+            margin-bottom: 18px;
+        }
+        .evaluation-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .evaluation-form input[type="number"],
+        .evaluation-form input[type="text"],
+        .evaluation-form select,
+        .evaluation-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .evaluation-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .evaluation-form .btn-primary {
+            width: auto;
+            padding: 10px 20px;
+            margin-top: 15px;
+        }
+        .text-muted {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 5px;
+            display: block;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .action-buttons .button-link {
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 20px 15px;
+            }
+            .loan-info-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .loan-info-grid strong {
+                min-width: unset;
+                display: block;
+                margin-bottom: 5px;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .action-buttons .button-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1><i class="fas fa-file-alt"></i> Loan Details for <span th:text="${loan.companyName}"></span></h1>
+
+        <div th:if="${successMessage}" class="message-box success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="message-box error" th:text="${errorMessage}"></div>
+
+        <div class="loan-info-grid">
+            <div><strong>Application ID:</strong> <span th:text="${loan.applicationId}"></span></div>
+            <div><strong>Applicant User ID:</strong> <span th:text="${loan.user.id}"></span></div>
+            <div><strong>Applicant Username:</strong> <span th:text="${loan.user.username}"></span></div>
+            <div><strong>Company Name:</strong> <span th:text="${loan.companyName}"></span></div>
+            <div><strong>Loan Type:</strong> <span th:text="${loan.loanType}"></span></div>
+            <div><strong>Loan Amount:</strong> <span th:text="${#numbers.formatCurrency(loan.loanAmount)}"></span></div>
+            <div><strong>Submission Date:</strong> <span th:text="${#temporals.format(loan.submissionDate, 'dd-MMM-yyyy')}"></span></div>
+            <div>
+                <strong>Current Status:</strong>
+                <span th:classappend="${loan.status == 'PENDING' ? 'status-pending' :
+                                         (loan.status == 'APPROVED' ? 'status-approved' :
+                                         (loan.status == 'REJECTED' ? 'status-rejected' :
+                                         (loan.status == 'DISBURSED' ? 'status-disbursed' : '')))}"
+                      class="status-badge" th:text="${loan.status}"></span>
+            </div>
+            <div th:if="${loan.requestedLoanTermYears}"><strong>Requested Term:</strong> <span th:text="${loan.requestedLoanTermYears + ' years'}"></span></div>
+            <div th:if="${loan.cibilScore}"><strong>CIBIL Score:</strong> <span th:text="${loan.cibilScore}"></span></div>
+
+            <div th:if="${loan.adminCreditScore}"><strong>Admin Credit Score:</strong> <span th:text="${loan.adminCreditScore}"></span></div>
+            <div th:if="${loan.adminEvaluationNotes}"><strong>Admin Notes:</strong> <span th:text="${loan.adminEvaluationNotes}"></span></div>
+            <div th:if="${loan.approvalRejectionDate}"><strong>Decision Date:</strong> <span th:text="${#temporals.format(loan.approvalRejectionDate, 'dd-MMM-yyyy')}"></span></div>
+            <div th:if="${loan.interestRate}"><strong>Interest Rate:</strong> <span th:text="${#numbers.formatDecimal(loan.interestRate * 100, 0, 2) + '%'}"></span></div>
+            <div th:if="${loan.loanTermMonths}"><strong>Loan Term (Months):</strong> <span th:text="${loan.loanTermMonths + ' months'}"></span></div>
+        </div>
+
+        <div th:if="${loan.status == 'APPROVED' or loan.status == 'DISBURSED'}" class="action-buttons">
+            <a th:href="@{/admin/loans/repayment-analysis/{id}(id=${loan.applicationId})}" class="button-link btn-primary">
+                <i class="fas fa-chart-line"></i> View Repayment Analysis
+            </a>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-folder-open"></i> Submitted Documents</h2>
+        <div th:if="${loan.documents != null and !loan.documents.isEmpty()}" class="document-list">
+            <ul>
+                <li th:each="doc : ${loan.documents}">
+                    <span><i class="fas fa-file-alt"></i> <span th:text="${doc.documentType}"></span>: <span th:text="${doc.fileName}"></span></span>
+                    <a href="#" onclick="alert('Simulated download: In a real application, this would download the file.'); return false;" class="button-link btn-secondary" style="padding: 5px 10px; font-size: 0.8em;">
+                        <i class="fas fa-download"></i> View
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div th:if="${loan.documents == null or loan.documents.isEmpty()}" class="message-box info">No documents uploaded for this application.</div>
+
+        <h2 class="section-title"><i class="fas fa-gavel"></i> Admin Evaluation</h2>
+        <div class="evaluation-form">
+            <form th:action="@{/admin/loans/evaluate/{id}(id=${loan.applicationId})}" method="post">
+                <div class="form-group">
+                    <label for="status">Change Status:</label>
+                    <select id="status" name="status" required>
+                        <option value="PENDING" th:selected="${loan.status == 'PENDING'}">PENDING</option>
+                        <option value="APPROVED" th:selected="${loan.status == 'APPROVED'}">APPROVED</option>
+                        <option value="REJECTED" th:selected="${loan.status == 'REJECTED'}">REJECTED</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="adminCreditScore">Admin Credit Score (Optional):</label>
+                    <input type="number" id="adminCreditScore" name="adminCreditScore" th:value="${loan.adminCreditScore}" placeholder="e.g., 750" min="300" max="900"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="interestRate">Interest Rate (Annual %):</label>
+                    <input type="number" id="interestRate" name="interestRate" step="0.001" th:value="${loan.interestRate}" placeholder="e.g., 0.05 for 5%"/>
+                    <small class="text-muted"><i class="fas fa-info-circle"></i> Enter as a decimal (e.g., 0.05 for 5%). Required for APPROVED/DISBURSED loans.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="loanTermMonths">Loan Term (Months):</label>
+                    <input type="number" id="loanTermMonths" name="loanTermMonths" th:value="${loan.loanTermMonths}" placeholder="e.g., 60 for 5 years" min="1"/>
+                    <small class="text-muted"><i class="fas fa-info-circle"></i> Enter in months. Required for APPROVED/DISBURSED loans.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="adminEvaluationNotes">Evaluation Notes (Optional):</label>
+                    <textarea id="adminEvaluationNotes" name="adminEvaluationNotes" th:text="${loan.adminEvaluationNotes}" placeholder="Add notes about the approval/rejection"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i> Update Loan Status
+                </button>
+            </form>
+        </div>
+
+        <a th:href="@{/admin/loans/all}" class="button-link btn-secondary mt-20">
+            <i class="fas fa-arrow-left"></i> Back to All Loans
+        </a>
+    </div>
+</body>
+</html>

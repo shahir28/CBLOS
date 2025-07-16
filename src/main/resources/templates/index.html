@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to HarNaSha-CBLOS!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/welcome.css}" />
+</head>
+<body>
+    <div class="welcome-container" onclick="redirectToDashboard()">
+        <h1 class="welcome-message">Welcome to HarNaSha-CBLOS!</h1>
+        <p class="welcome-subtitle">Your trusted partner for seamless financial solutions.</p>
+        <a href="/user/dashboard" class="enter-button">
+            <i class="fas fa-arrow-right"></i> Enter the Dashboard
+        </a>
+    </div>
+
+    <script>
+        // Function to redirect to the dashboard
+        function redirectToDashboard() {
+            // Only redirect if the click is not directly on the button (to allow button hover effects)
+            // Or, more simply, just let the button handle the click.
+            // For "click anywhere to enter", remove the button and make the whole container redirect.
+            // For now, I'll keep the button and also allow clicking anywhere.
+            // The button's href will handle the primary action.
+            // This function handles clicks *outside* the button.
+            if (event.target.tagName !== 'A' && event.target.tagName !== 'BUTTON') {
+                window.location.href = '/user/dashboard';
+            }
+        }
+
+        // Optional: Add a small delay or animation before redirecting if needed
+        // For now, direct redirect on click.
+    </script>
+</body>
+</html>

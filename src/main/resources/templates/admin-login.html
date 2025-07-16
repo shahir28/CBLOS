@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/base-corporate.css}" />
+    <link rel="stylesheet" th:href="@{/css/auth-corporate.css}" />
+</head>
+<body class="admin-login-page">
+    <div class="auth-container">
+        <h2>👑 Admin Access Only 👑</h2>
+        <form th:action="@{/admin/login}" method="post">
+            <div class="form-group">
+                <label for="username">Admin Username:</label>
+                <input type="text" id="username" name="username" required="required" placeholder="Enter admin username"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Admin Password:</label>
+                <input type="password" id="password" name="password" required="required" placeholder="Enter admin password"/>
+            </div>
+            <div th:if="${error}" class="message-box error" th:text="${error}"></div>
+            <button type="submit" class="btn-auth-submit">Unlock Admin Panel</button>
+        </form>
+        <p class="link-text">
+            <a th:href="@{/login}">Back to User Login</a>
+        </p>
+    </div>
+</body>
+</html>

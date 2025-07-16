@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Disbursement Tracking</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" /> </head>
+<body>
+<h2>Track Disbursement</h2>
+
+<form th:action="@{/disbursement/track}" th:object="${disbursement}" method="post">
+    <label>Application ID:</label>
+    <input type="number" th:field="*{application.applicationId}" required/><br/> <label>Disbursed Amount:</label>
+    <input type="number" step="0.01" th:field="*{disbursedAmount}" required/><br/>
+
+    <label>Disbursement Date:</label>
+    <input type="date" th:field="*{disbursementDate}" required/><br/>
+
+    <label>Repayment Schedule:</label>
+    <textarea th:field="*{repaymentSchedule}" required></textarea><br/>
+
+    <button type="submit">Track</button>
+</form>
+</body>
+</html>

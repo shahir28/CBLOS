@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Loan Status 📊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/base-corporate.css}" />
+    <link rel="stylesheet" th:href="@{/css/app-corporate.css}" />
+    <style>
+        /* Specific styles for Loan Status Page */
+        .loan-status-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 25px;
+            text-align: left;
+            border: 1px solid #e0e0e0;
+        }
+        .loan-status-card p {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.1em;
+        }
+        .loan-status-card strong {
+            color: #2c3e50;
+            min-width: 150px;
+            display: inline-block;
+        }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+        .status-pending { background-color: #ffc10720; color: #ffc107; } /* Yellow */
+        .status-approved { background-color: #28a74520; color: #28a745; } /* Green */
+        .status-rejected { background-color: #dc354520; color: #dc3545; } /* Red */
+        .status-disbursed { background-color: #007bff20; color: #007bff; } /* Blue */
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        .action-buttons .button-link {
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 20px 15px;
+            }
+            .loan-status-card {
+                padding: 20px;
+            }
+            .loan-status-card strong {
+                min-width: unset;
+                display: block;
+                margin-bottom: 5px;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .action-buttons .button-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1><i class="fas fa-tasks"></i> Your Loan Status</h1>
+
+        <div th:if="${loan != null}" class="loan-status-card">
+            <p><strong>Application ID:</strong> <span th:text="${loan.applicationId}"></span></p>
+            <p><strong>Company Name:</strong> <span th:text="${loan.companyName}"></span></p>
+            <p><strong>Loan Type:</strong> <span th:text="${loan.loanType}"></span></p>
+            <p><strong>Loan Amount:</strong> <span th:text="${#numbers.formatCurrency(loan.loanAmount)}"></span></p>
+            <p><strong>Application Date:</strong> <span th:text="${#temporals.format(loan.submissionDate, 'dd-MMM-yyyy')}"></span></p>
+            <p><strong>Current Status:</strong>
+                <span th:classappend="${loan.status == 'PENDING' ? 'status-pending' :
+                                         (loan.status == 'APPROVED' ? 'status-approved' :
+                                         (loan.status == 'REJECTED' ? 'status-rejected' :
+                                         (loan.status == 'DISBURSED' ? 'status-disbursed' : '')))}"
+                      class="status-badge" th:text="${loan.status}"></span>
+            </p>
+            <p th:if="${loan.requestedLoanTermYears}"><strong>Requested Term:</strong> <span th:text="${loan.requestedLoanTermYears + ' years'}"></span></p>
+            <p th:if="${loan.cibilScore}"><strong>CIBIL Score:</strong> <span th:text="${loan.cibilScore}"></span></p>
+
+            <p th:if="${loan.adminCreditScore}"><strong>Admin Credit Score:</strong> <span th:text="${loan.adminCreditScore}"></span></p>
+            <p th:if="${loan.adminEvaluationNotes}"><strong>Admin Notes:</strong> <span th:text="${loan.adminEvaluationNotes}"></span></p>
+            <p th:if="${loan.approvalRejectionDate}"><strong>Decision Date:</strong> <span th:text="${#temporals.format(loan.approvalRejectionDate, 'dd-MMM-yyyy')}"></span></p>
+            <p th:if="${loan.interestRate}"><strong>Interest Rate:</strong> <span th:text="${#numbers.formatDecimal(loan.interestRate * 100, 0, 2) + '%'}"></span></p>
+            <p th:if="${loan.loanTermMonths}"><strong>Loan Term (Months):</strong> <span th:text="${loan.loanTermMonths + ' months'}"></span></p>
+
+            <div th:if="${loan.status == 'APPROVED' or loan.status == 'DISBURSED'}" class="action-buttons">
+                <a th:href="@{/user/loan/repayment-analysis/{id}(id=${loan.applicationId})}" class="button-link btn-primary">
+                    <i class="fas fa-chart-line"></i> View Repayment Analysis
+                </a>
+            </div>
+        </div>
+        <div th:if="${loanList != null && !loanList.isEmpty()}">
+            <h2>Your Recent Applications:</h2>
+            <div th:each="loanItem : ${loanList}" class="loan-status-card">
+                <p><strong>Application ID:</strong> <span th:text="${loanItem.applicationId}"></span></p>
+                <p><strong>Company Name:</strong> <span th:text="${loanItem.companyName}"></span></p>
+                <p><strong>Loan Amount:</strong> <span th:text="${#numbers.formatCurrency(loanItem.loanAmount)}"></span></p>
+                <p><strong>Status:</strong>
+                    <span th:classappend="${loanItem.status == 'PENDING' ? 'status-pending' :
+                                             (loanItem.status == 'APPROVED' ? 'status-approved' :
+                                             (loanItem.status == 'REJECTED' ? 'status-rejected' :
+                                             (loanItem.status == 'DISBURSED' ? 'status-disbursed' : '')))}"
+                          class="status-badge" th:text="${loanItem.status}"></span>
+                </p>
+                <a th:href="@{/loan/status(applicationId=${loanItem.applicationId})}" class="button-link btn-primary" style="margin-top: 15px;">
+                    <i class="fas fa-eye"></i> View Details
+                </a>
+                <div th:if="${loanItem.status == 'APPROVED' or loanItem.status == 'DISBURSED'}" style="margin-top: 10px;">
+                    <a th:href="@{/user/loan/repayment-analysis/{id}(id=${loanItem.applicationId})}" class="button-link btn-success">
+                        <i class="fas fa-chart-line"></i> View Repayment
+                    </a>
+                </div>
+            </div>
+        </div>
+        <p th:if="${loan == null && (loanList == null || loanList.isEmpty())}" class="message-box info">No loan applications found for your account.</p>
+        <div th:if="${error}" class="message-box error" th:text="${error}"></div>
+
+        <a href="/user/dashboard" class="button-link btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</body>
+</html>

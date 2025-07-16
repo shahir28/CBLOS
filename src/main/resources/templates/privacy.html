@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - HarNaSha-CBLOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/base-corporate.css">
+    <link rel="stylesheet" href="/css/app-corporate.css">
+    <style>
+        /* Specific styles for the Privacy Policy page */
+        .privacy-policy-container {
+            max-width: 800px; /* Slightly narrower for focus */
+            margin: 40px auto;
+            padding: 35px; /* More padding */
+            background-color: #ffffff;
+            border-radius: 16px; /* Softer corners */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Lighter, more diffuse shadow */
+            line-height: 1.7; /* Slightly more relaxed line height */
+            color: #333;
+            animation: fadeInScaleUp 0.7s ease-out forwards; /* New animation */
+            border: 1px solid #f0f0f0; /* Subtle border */
+        }
+ 
+        .privacy-policy-container h1 {
+            font-size: 2.5em; /* Slightly smaller, still impactful */
+            color: #1f3698; /* A more vibrant primary blue */
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.5px; /* Tighter letter spacing for modern feel */
+        }
+ 
+        .privacy-policy-container p.effective-date {
+            text-align: center;
+            font-size: 0.95em;
+            color: #777;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+ 
+        .privacy-policy-container h2 {
+            font-size: 1.6em; /* Adjusted heading size */
+            color: #2e51a2; /* A deeper blue for subheadings */
+            margin-top: 30px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #ececec; /* Lighter border */
+            padding-bottom: 6px;
+            font-weight: 600;
+        }
+ 
+        .privacy-policy-container p,
+        .privacy-policy-container ul {
+            font-size: 1em; /* Slightly smaller for conciseness */
+            margin-bottom: 12px;
+        }
+ 
+        .privacy-policy-container ul {
+            list-style-type: disc;
+            padding-left: 22px;
+        }
+ 
+        .privacy-policy-container ul li {
+            margin-bottom: 6px;
+        }
+ 
+        .back-button-container {
+            text-align: center;
+            margin-top: 50px; /* More space above button */
+            margin-bottom: 30px;
+        }
+ 
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+            color: white;
+            padding: 13px 30px; /* Bolder button */
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 123, 255, 0.25); /* More pronounced shadow */
+        }
+ 
+        .back-button:hover {
+            transform: translateY(-4px); /* Slightly more lift */
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+            background: linear-gradient(45deg, #00c6ff, #007bff);
+        }
+ 
+        /* New Animation */
+        @keyframes fadeInScaleUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+ 
+        /* Adjustments for footer on this page */
+        .dashboard-footer {
+            position: relative;
+            margin-top: 60px; /* More space for the footer */
+            background: #f8f9fa; /* Even lighter footer background */
+            color: #666;
+            box-shadow: none;
+            border-top: 1px solid #e9ecef; /* Subtle top border */
+            padding: 20px 0; /* More padding for footer */
+        }
+ 
+        .dashboard-footer p, .dashboard-footer .footer-links a {
+            color: #666;
+        }
+ 
+        .dashboard-footer .footer-links a:hover {
+            color: #007bff;
+        }
+ 
+        /* Responsive adjustments for privacy policy content */
+        @media (max-width: 768px) {
+            .privacy-policy-container {
+                margin: 25px auto;
+                padding: 25px;
+            }
+            .privacy-policy-container h1 {
+                font-size: 2em;
+            }
+            .privacy-policy-container h2 {
+                font-size: 1.4em;
+            }
+            .privacy-policy-container p,
+            .privacy-policy-container ul {
+                font-size: 0.95em;
+            }
+            .back-button {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+        }
+ 
+        @media (max-width: 480px) {
+            .privacy-policy-container {
+                margin: 15px;
+                padding: 20px;
+                border-radius: 12px;
+            }
+            .privacy-policy-container h1 {
+                font-size: 1.6em;
+            }
+            .privacy-policy-container h2 {
+                font-size: 1.2em;
+            }
+            .dashboard-footer {
+                padding: 15px 0;
+                font-size: 0.85em;
+            }
+            .dashboard-footer .footer-links {
+                flex-direction: column; /* Stack links vertically */
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="dashboard-header">
+            <h1 class="greeting">Privacy Policy</h1>
+            <p class="tagline">Your trust, our commitment.</p> </header>
+ 
+        <main class="dashboard-content">
+            <div class="privacy-policy-container">
+                <h1>Our Privacy Policy</h1>
+                <p class="effective-date"><strong>Effective Date:</strong> May 23, 2025</p>
+ 
+                <p>We are dedicated to safeguarding your privacy and personal information at HarNaSha-CBLOS. This policy outlines how we handle your data when you use our services.</p>
+ 
+                <h2>1. Information We Collect</h2>
+                <p>We collect necessary information you provide, such as your name, documents, financial information (for loans).</p>
+ 
+                <h2>2. How We Use Your Information</h2>
+                <p>Your information helps us:</p>
+                <ul>
+                    <li>Process loan applications and manage accounts.</li>
+                    <li>Improve our services (CIBIL calculator, financial tips).</li>
+                    <li>Communicate with you.</li>
+                    <li>Ensure compliance and security.</li>
+                </ul>
+ 
+                <h2>3. Sharing Your Information</h2>
+                <p>We may share data with:</p>
+                <ul>
+                    <li>**Service Providers:** Partners who help us operate (e.g., credit bureaus).</li>
+                    <li>**Legal Compliance:** When required by law or government requests.</li>
+                    <li>**Business Transfers:** In case of mergers or acquisitions.</li>
+                </ul>
+ 
+                <h2>4. Data Security</h2>
+                <p>We use strong security measures like encryption to protect your data. However, no online system is 100% infallible.</p>
+ 
+                <h2>5. Your Rights</h2>
+                <p>You have rights regarding your data, including access, correction, and deletion. Contact us to exercise these rights.</p>
+ 
+                <h2>6. Policy Updates</h2>
+                <p>We may update this policy periodically. Check back here for the latest version.</p>
+ 
+                <h2>7. Contact Us</h2>
+                <p>For any privacy concerns, reach us at: <a href="mailto:support@harnasha-cblos.com">support@harnasha-cblos.com</a></p>
+                </div>
+ 
+            <div class="back-button-container">
+                <a href="/user/dashboard" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </main>
+ 
+        <footer class="dashboard-footer">
+            <p>&copy; 2025 The Coolest Corporate Bank Loan System Ever! ✨</p>
+            <div class="footer-links">
+                <a href="/privacy-policy">Privacy Policy</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+ 

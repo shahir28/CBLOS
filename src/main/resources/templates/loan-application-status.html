@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Loan Status</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h2>Loan Application Status</h2>
+    <p><strong>Application ID:</strong> <span th:text="${application.applicationId}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${application.status}"></span></p>
+    <p><strong>Submission Date:</strong> <span th:text="${application.submissionDate}"></span></p>
+    <a th:href="@{/loan/list}">Back to List</a>
+</body>
+</html>

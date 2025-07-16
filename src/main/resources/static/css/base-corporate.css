@@ -1,0 +1,255 @@
+/* Base Corporate Theme: Foundational Styles */
+
+/* Universal Box-Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Body and Typography */
+body {
+    font-family: 'Inter', sans-serif; /* Professional, clean font */
+    margin: 0;
+    padding: 0;
+    color: #333d47; /* Dark charcoal for primary text */
+    line-height: 1.6;
+    background-color: #f8f9fa; /* Light grey background */
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    color: #004085; /* Deep corporate blue */
+    margin-top: 0;
+    margin-bottom: 1.2em;
+    font-weight: 700; /* Bold for impact */
+}
+
+h1 { font-size: 2.8em; }
+h2 { font-size: 2.2em; }
+h3 { font-size: 1.8em; }
+h4 { font-size: 1.4em; }
+
+/* Paragraphs */
+p {
+    margin-bottom: 1em;
+    color: #5a6268; /* Softer grey for body text */
+}
+
+/* Links */
+a {
+    color: #007bff; /* Standard blue for links */
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+    transform: translateY(-1px);
+}
+
+/* Buttons - General Styling */
+button, .button-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px; /* Slightly rounded for modern feel */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    text-decoration: none; /* For button-links */
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:hover, .button-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Primary Button Style */
+.btn-primary {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+}
+.btn-primary:hover {
+    background: linear-gradient(45deg, #0056b3, #007bff);
+}
+
+/* Secondary Button Style */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Success Button Style */
+.btn-success {
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: white;
+}
+.btn-success:hover {
+    background: linear-gradient(45deg, #218838, #28a745);
+}
+
+/* Danger/Reject Button Style */
+.btn-danger {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    color: white;
+}
+.btn-danger:hover {
+    background: linear-gradient(45deg, #c82333, #dc3545);
+}
+
+/* Form Elements - General */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da; /* Light grey border */
+    border-radius: 8px;
+    font-size: 1em;
+    color: #495057;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #80bdff; /* Focus blue */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-4.8-4.8-12.5-4.8-17.3%2C0L5.4%2C197.3c-4.8%2C4.8-4.8%2C12.5%2C0%2C17.3s12.5%2C4.8%2C17.3%2C0l130.8-130.8L269.7%2C214.6c4.8%2C4.8%2C12.5%2C4.8%2C17.3%2C0S291.8%2C202.1%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 30px; /* Make space for the custom arrow */
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Containers/Cards */
+.container-card {
+    background-color: #ffffff;
+    border-radius: 12px; /* Consistent rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    width: 100%;
+    margin: 20px auto; /* Centered with margin */
+    text-align: center;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-20 { margin-bottom: 20px; }
+.mt-20 { margin-top: 20px; }
+.py-30 { padding-top: 30px; padding-bottom: 30px; }
+
+/* Icon Animations (Apply to Font Awesome icons directly or within specific elements) */
+.fas, .far, .fab {
+    transition: transform 0.3s ease-out, color 0.3s ease-out;
+}
+
+/* Example hover animation for icons within buttons/links */
+button .fas, .button-link .fas,
+.feature-card .icon,
+.modal-content .icon-success {
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+button:hover .fas, .button-link:hover .fas {
+    transform: scale(1.1) rotate(5deg); /* Slight pop and rotation */
+    color: inherit; /* Keep icon color consistent with button text */
+}
+
+/* Specific icon animations for dashboard cards etc. */
+.feature-card:hover .icon {
+    transform: translateY(-5px) scale(1.1); /* Lift and grow effect */
+    color: #0056b3; /* Darker blue on hover */
+}
+
+/* General messages (success/error) */
+.message-box {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1em;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+.message-box.success {
+    background-color: #d4edda; /* Light green */
+    color: #155724; /* Dark green text */
+    border: 1px solid #c3e6cb;
+}
+.message-box.error {
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb;
+}
+.message-box.info {
+    background-color: #d1ecf1; /* Light blue */
+    color: #0c5460; /* Dark blue text */
+    border: 1px solid #bee5eb;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.85em;
+    display: inline-block;
+    min-width: 80px; /* Ensure consistent width for badges */
+    text-align: center;
+}
+.status-pending { background-color: #ffc107; color: #856404; } /* Yellow */
+.status-approved { background-color: #28a745; color: white; } /* Green */
+.status-rejected { background-color: #dc3545; color: white; } /* Red */
+.status-disbursed { background-color: #17a2b8; color: white; } /* Cyan */
+

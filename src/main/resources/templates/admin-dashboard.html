@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard 📊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/base-corporate.css}" />
+    <link rel="stylesheet" th:href="@{/css/app-corporate.css}" />
+    <style>
+        /* Specific styles for Admin Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .dashboard-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .dashboard-card .icon {
+            font-size: 3.5em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .dashboard-card .value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .dashboard-card .label {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .dashboard-card .btn-view {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dashboard-card .btn-view:hover {
+            background-color: #0056b3;
+        }
+
+        .section-header {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        /* System Analytics Section */
+        .analytics-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .analytic-item {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .analytic-item .value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #28a745; /* Green for positive metrics */
+            margin-bottom: 5px;
+        }
+        .analytic-item .label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .analytic-item .value.red {
+            color: #dc3545; /* Red for negative metrics */
+        }
+        /* Chart specific styling */
+        .chart-container {
+            position: relative;
+            height: 250px; /* Fixed height for the chart */
+            width: 100%;
+            margin-top: 25px;
+            background-color: #f0f2f5;
+            border-radius: 8px;
+            padding: 15px; /* Add some padding around the chart */
+            box-sizing: border-box; /* Include padding in width/height */
+            border: 1px solid #e0e0e0;
+        }
+
+
+        /* System Settings Section */
+        .settings-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+        .settings-form .form-group {
+            margin-bottom: 18px;
+        }
+        .settings-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .settings-form input[type="text"],
+        .settings-form input[type="number"],
+        .settings-form select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .settings-form button {
+            margin-top: 20px;
+            width: auto;
+            padding: 10px 25px;
+        }
+
+        /* Privacy Policy Section */
+        .privacy-policy-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+            text-align: left; /* Align text left within the card */
+        }
+        .privacy-policy-card h3 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .privacy-policy-card p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
+            text-align: left; /* Ensure paragraphs align left */
+        }
+        .privacy-policy-card ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .privacy-policy-card li {
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        /* Recent Admin Actions Section */
+        .admin-actions-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+        .action-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .action-list li {
+            background-color: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95em;
+            color: #444;
+        }
+        .action-list li .action-icon {
+            color: #007bff;
+            font-size: 1.2em;
+        }
+        .action-list li .action-time {
+            font-style: italic;
+            color: #888;
+            font-size: 0.85em;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 20px 15px;
+            }
+            .dashboard-grid, .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-header {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+
+        <h2 class="section-header"><i class="fas fa-chart-bar"></i> Loan Application Overview</h2>
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <i class="fas fa-file-invoice-dollar icon"></i>
+                <div class="value" th:text="${totalApplications}"></div>
+                <div class="label">Total Applications</div>
+                <a th:href="@{/admin/loans/all}" class="btn-view">
+                    <i class="fas fa-eye"></i> View All
+                </a>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-hourglass-half icon" style="color: #ffc107;"></i>
+                <div class="value" th:text="${pendingApprovals}"></div>
+                <div class="label">Pending Approvals</div>
+                </div>
+            <div class="dashboard-card">
+                <i class="fas fa-check-circle icon" style="color: #28a745;"></i>
+                <div class="value" th:text="${approvedLoans}"></div>
+                <div class="label">Approved Loans</div>
+                </div>
+            <div class="dashboard-card">
+                <i class="fas fa-times-circle icon" style="color: #dc3545;"></i>
+                <div class="value" th:text="${rejectedLoans}"></div>
+                <div class="label">Rejected Loans</div>
+                </div>
+        </div>
+
+        <h2 class="section-header"><i class="fas fa-chart-line"></i> System Analytics</h2>
+        <div class="analytics-card">
+            <p style="text-align: center; color: #555;">High-level operational insights (simulated data).</p>
+            <div class="analytics-grid">
+                <div class="analytic-item">
+                    <div class="value">98.5%</div>
+                    <div class="label">Uptime</div>
+                </div>
+                <div class="analytic-item">
+                    <div class="value">1200</div>
+                    <div class="label">Active Users</div>
+                </div>
+                <div class="analytic-item">
+                    <div class="value">$1.2M</div>
+                    <div class="label">Total Disbursed (YTD)</div>
+                </div>
+                <div class="analytic-item">
+                    <div class="value red">5%</div>
+                    <div class="label">Default Rate</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="randomChart"></canvas>
+            </div>
+        </div>
+
+        <h2 class="section-header"><i class="fas fa-cogs"></i> System Settings</h2>
+        <div class="settings-card">
+            <p style="text-align: center; color: #555;">Configure global system parameters (simulated settings).</p>
+            <form class="settings-form" onsubmit="alert('Settings saved! (Simulated)'); return false;">
+                <div class="form-group">
+                    <label for="minLoanAmount">Minimum Loan Amount:</label>
+                    <input type="number" id="minLoanAmount" value="10000" min="0" />
+                </div>
+                <div class="form-group">
+                    <label for="maxLoanTerm">Maximum Loan Term (Years):</label>
+                    <input type="number" id="maxLoanTerm" value="15" min="1" max="30" />
+                </div>
+                <div class="form-group">
+                    <label for="defaultInterestRate">Default Interest Rate (%):</label>
+                    <input type="number" id="defaultInterestRate" value="7.5" step="0.1" min="0" max="20" />
+                </div>
+                <div class="form-group">
+                    <label for="notificationEmail">Admin Notification Email:</label>
+                    <input type="email" id="notificationEmail" value="admin@yourbank.com" />
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
+            </form>
+        </div>
+
+        <h2 class="section-header"><i class="fas fa-history"></i> Recent Admin Actions</h2>
+        <div class="admin-actions-card">
+            <p style="text-align: center; color: #555;">A log of recent administrative activities (simulated data).</p>
+            <ul class="action-list">
+                <li><i class="fas fa-check-circle action-icon"></i> Approved Loan Application #102 <span class="action-time">(2 hours ago)</span></li>
+                <li><i class="fas fa-user-edit action-icon"></i> Updated User Profile for 'Nandhu' <span class="action-time">(Yesterday)</span></li>
+                <li><i class="fas fa-times-circle action-icon"></i> Rejected Loan Application #103 <span class="action-time">(3 days ago)</span></li>
+                <li><i class="fas fa-cogs action-icon"></i> Updated System Setting: Max Loan Term to 15 years <span class="action-time">(5 days ago)</span></li>
+                <li><i class="fas fa-user-plus action-icon"></i> Created New Admin User 'JaneDoe' <span class="action-time">(1 week ago)</span></li>
+            </ul>
+        </div>
+
+        <h2 class="section-header"><i class="fas fa-shield-alt"></i> Admin Privacy Policy</h2>
+        <div class="privacy-policy-card">
+            <h3>Purpose of Data Collection</h3>
+            <p>As an administrator of the Corporate Bank Loan System, you interact with sensitive customer and operational data. This policy outlines how your access and actions are handled to ensure security, compliance, and accountability.</p>
+
+            <h3>Data Accessed by Admin</h3>
+            <p>Admins have access to:</p>
+            <ul>
+                <li>All customer loan application details (company name, loan type, amount, CIBIL score, requested terms).</li>
+                <li>Customer personal information (username, full name, email).</li>
+                <li>Loan evaluation notes, approval/rejection decisions, and assigned loan terms.</li>
+                <li>Uploaded customer documents.</li>
+                <li>System analytics and configuration settings.</li>
+            </ul>
+
+            <h3>Logging and Monitoring</h3>
+            <p>For security and auditing purposes, your actions within this system are logged. This includes, but is not limited to:</p>
+            <ul>
+                <li>Login and logout times.</li>
+                <li>Changes made to loan application statuses.</li>
+                <li>Updates to user profiles.</li>
+                <li>Access to sensitive data or documents.</li>
+                <li>System setting modifications.</li>
+            </ul>
+            <p>These logs are used for internal security audits, troubleshooting, and compliance checks. They are not shared with third parties except as required by law.</p>
+
+            <h3>Data Security and Confidentiality</h3>
+            <p>You are responsible for maintaining the confidentiality of all data accessed through your admin account. Unauthorized disclosure or misuse of data is strictly prohibited and may result in disciplinary action.</p>
+
+            <h3>Policy Updates</h3>
+            <p>This policy may be updated periodically. Significant changes will be communicated via system announcements or direct notification.</p>
+        </div>
+
+
+        <div class="action-buttons" style="justify-content: center; margin-top: 40px;">
+            <a th:href="@{/admin/users/manage}" class="button-link btn-secondary">
+                <i class="fas fa-users-cog"></i> Manage Users
+            </a>
+            <form th:action="@{/logout}" method="post" style="display: inline-block;">
+                <button type="submit" class="button-link btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('randomChart').getContext('2d');
+
+            // Generate some random data for the chart
+            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+            const data = labels.map(() => Math.floor(Math.random() * 200) + 50); // Random values between 50 and 250
+
+            new Chart(ctx, {
+                type: 'bar', // You can change this to 'line', 'pie', 'doughnut', etc.
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Loan Applications (Simulated)',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(0, 123, 255, 0.6)', // Blue
+                            'rgba(40, 167, 69, 0.6)',  // Green
+                            'rgba(255, 193, 7, 0.6)',  // Yellow
+                            'rgba(220, 53, 69, 0.6)',  // Red
+                            'rgba(108, 117, 125, 0.6)',// Grey
+                            'rgba(23, 162, 184, 0.6)', // Cyan
+                            'rgba(111, 66, 193, 0.6)'  // Purple
+                        ],
+                        borderColor: [
+                            'rgba(0, 123, 255, 1)',
+                            'rgba(40, 167, 69, 1)',
+                            'rgba(255, 193, 7, 1)',
+                            'rgba(220, 53, 69, 1)',
+                            'rgba(108, 117, 125, 1)',
+                            'rgba(23, 162, 184, 1)',
+                            'rgba(111, 66, 193, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Allow chart to fill container height
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Monthly Application Trends',
+                            font: {
+                                size: 16,
+                                family: 'Inter'
+                            },
+                            color: '#333'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                font: {
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: {
+                                    family: 'Inter'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

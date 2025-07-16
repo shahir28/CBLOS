@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Loan Applications</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h1>Loan Applications</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th><th>Company</th><th>Type</th><th>Amount</th><th>Status</th><th>Actions</th>
+        </tr>
+        <tr th:each="app : ${applications}">
+            <td th:text="${app.applicationId}"></td>
+            <td th:text="${app.companyName}"></td>
+            <td th:text="${app.loanType}"></td>
+            <td th:text="${app.loanAmount}"></td>
+            <td th:text="${app.status}"></td>
+            <td><a th:href="@{'/loan/loan-status/' + ${app.applicationId}}">View Status</a></td>
+        </tr>
+    </table>
+</body>
+</html>

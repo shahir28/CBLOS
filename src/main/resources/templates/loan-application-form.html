@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Loan Application Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/base-corporate.css}" />
+    <link rel="stylesheet" th:href="@{/css/app-corporate.css}" />
+    <style>
+        /* Basic styling for the form to make it presentable */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Light background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding in width */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+        .text-muted {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 5px;
+            display: block;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none; /* For button-link style */
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #6c757d;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none; /* For button-link style */
+            margin-top: 15px;
+            gap: 8px;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .button-group .btn-primary, .button-group .btn-secondary {
+            flex-grow: 1;
+            margin: 0 5px;
+        }
+        @media (max-width: 600px) {
+            .app-container {
+                margin: 15px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                margin: 10px 0;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container loan-form-container">
+        <h1><i class="fas fa-file-invoice-dollar"></i> Your Loan Application Journey</h1>
+        <p>Fill out the details below to kickstart your loan application!</p>
+        <form th:action="@{/loan/submit}" th:object="${loanApplication}" method="post">
+            <label>Company Name:
+                <input type="text" th:field="*{companyName}" placeholder="e.g., Acme Corp" required/>
+            </label>
+            <label>Loan Type:
+                <input type="text" th:field="*{loanType}" placeholder="e.g., Business Expansion Loan" required/>
+            </label>
+            <label>Loan Amount:
+                <input type="number" th:field="*{loanAmount}" placeholder="e.g., 500000" min="1000" required/>
+            </label>
+
+            <label>Repayment Term (Years):
+                <input type="number" th:field="*{requestedLoanTermYears}" placeholder="e.g., 5" min="1" max="30" required/>
+                <small class="text-muted">Enter the desired repayment period in years (e.g., 5 for 5 years).</small>
+            </label>
+
+            <label>CIBIL Score:
+                <input type="number" th:field="*{cibilScore}" placeholder="e.g., 750" min="300" max="900" required/>
+                <small class="text-muted">Enter your CIBIL score (e.g., 750).</small>
+            </label>
+
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-paper-plane"></i> Submit Application!
+            </button>
+        </form>
+        <a href="/user/dashboard" class="button-link btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</body>
+</html>
