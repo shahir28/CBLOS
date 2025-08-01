@@ -1,4 +1,4 @@
-name: Build Spring Boot JAR and Docker Image
+name: Build Docker Image with Multi-Stage
 
 on:
   push:
@@ -12,27 +12,5 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-maven
-
-    - name: Build with Maven
-      run: ./mvnw clean package -DskipTests
-
-    - name: Copy JAR to root (for Docker)
-      run: cp target/*.jar app.jar
-
-    - name: Build Docker image
+    - name: Build Docker Image
       run: docker build -t springboot-app .
-
-    - name: Show built image
-      run: docker images
